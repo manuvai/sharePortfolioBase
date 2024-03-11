@@ -18,7 +18,8 @@ package tp04.metier;
 /**
  * This class aims at storing a value (of an action) for a given day.
  * <p>
- * Example of usage: <code>Cours c = new Cours(j, 2.3F);</code></p>
+ * Example of usage: <code>Cours c = new Cours(j, 2.3F);</code>
+ * </p>
  *
  * @author SomeFirstName SomeName &lt;SomeFirstName.SomeName at truc.fr&gt;
  * @see Action
@@ -56,7 +57,7 @@ public final class Cours {
     /**
      * Builds a Cours instance from a day and a value.
      *
-     * @param aJour the day of the Cours
+     * @param aJour   the day of the Cours
      * @param aValeur ths value of the Cours
      */
     public Cours(final Jour aJour, final float aValeur) {
