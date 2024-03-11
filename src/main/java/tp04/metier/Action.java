@@ -33,7 +33,9 @@ public abstract class Action {
     @Override
     public int hashCode() {
         int hash = 3;
-        return (53 * hash) + Objects.hashCode(this.libelle);
+        int salt = 53;
+
+        return (salt * hash) + Objects.hashCode(libelle);
     }
 
     @Override
