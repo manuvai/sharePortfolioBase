@@ -18,7 +18,7 @@ public class ActionComposee extends Action {
     Map<ActionSimple, Float> mapPanier;
 
     public ActionComposee(String libelle) {
-        super(libelle);
+        super(libelle, 50.0);
         this.mapPanier = new HashMap();
     }
 
