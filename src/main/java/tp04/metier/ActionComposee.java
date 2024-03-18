@@ -20,7 +20,7 @@ public class ActionComposee extends Action {
     public ActionComposee(String libelle) throws Exception {
         super(libelle);
         // Vérification permettant de vérifier le constructeur
-        if (libelle.equals("")){
+        if ("".equals(libelle)){
           throw new Exception("ActionComposée ne peux pas avoir un libelle vide");
         }
         this.mapPanier = new HashMap();

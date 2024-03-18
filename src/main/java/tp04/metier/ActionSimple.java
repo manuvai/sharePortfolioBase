@@ -28,7 +28,7 @@ public class ActionSimple extends Action {
     public ActionSimple(String libelle) throws Exception {
         // Action simple initialisée comme 1 action
         super(libelle);
-        if (libelle.equals("")){
+        if ("".equals(libelle)){
           throw new Exception("ActionSimple ne peux pas avoir un libelle vide");
         }
         // init spécifique
