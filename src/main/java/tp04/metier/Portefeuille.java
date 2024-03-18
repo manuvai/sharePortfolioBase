@@ -190,12 +190,17 @@ public class Portefeuille {
         }
     }
     
-    
+ /**
+    * Calcule l'évolution du portefeuille entre deux dates données.
+    *
+    * @param jourDebut la date de début de la période
+    * @param jourFin la date de fin de la période
+    * @return l'évolution du portefeuille entre les deux dates, sous forme de float
+ */
     public float evolutionPortefeuille(Jour jourDebut, Jour jourFin){
-        float evolution = 0;
-        evolution = valeur(jourFin) - valeur(jourDebut);
-        return evolution;
-}
+        
+        return valeur(jourFin) - valeur(jourDebut);
+    }
 }
 
 
