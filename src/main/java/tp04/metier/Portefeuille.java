@@ -47,6 +47,31 @@ public class Portefeuille {
         this.mapLignes = new HashMap();
     }
 
+    
+    /** 
+     * Achat une quantité spécifiée d'une certaine action.
+     * Si l'action n'est pas présente dans le portefeuille, elle est ajoutée avec la quantité spécifiée.
+     * Si l'action est déjà présente, la quantité existante est mise à jour en ajoutant la quantité spécifiée. 
+     *
+     * @param a l'action à acheter.
+     * @param q la quantité à acheter
+     */
+    
+    public void acheter(Action a, int q) {
+    if (q <= 0) {
+        throw new IllegalArgumentException("La quantité doit être supérieure à 0 pour acheter cette action");
+    }
+
+    // Si l'action n'est pas présente dans le portefeuille, l'ajouter avec la quantité spécifiée
+    if (!mapLignes.containsKey(a)) {
+        mapLignes.put(a, new LignePortefeuille(a, q));
+    } else {
+    // Si l'action est déjà présente, mettre à jour la quantité existante en ajoutant la quantité spécifiée
+        mapLignes.get(a).setQte(mapLignes.get(a).getQte() + q);
+    }
+}
+    
+    
     /**
      * Vend une quantité spécifiée d'une certaine action.
      * Si la quantité disponible est supérieure à la quantité spécifiée,

@@ -127,5 +127,62 @@ public class PortefeuilleTest {
         Assertions.assertNull(portefeuille.mapLignes.get(action), "Vente d'actions composées KO");
 
     }
+    
+    @Test
+    public void testAcheterActionSimpleQuantiteTotaleOK() {
+        // GIVEN
+        ActionSimple action = new ActionSimple("Total");
+        Portefeuille portefeuille = new Portefeuille();
 
+        // WHEN
+        portefeuille.acheter(action, 10);
+
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(action), "L'action doit être présente dans le portefeuille");
+        Assertions.assertEquals(10, portefeuille.mapLignes.get(action).getQte(), "La quantité d'action doit être 10");
+    }
+    
+    
+     @Test
+    public void testAcheterActionComposeeeQuantiteTotaleOK() {
+        // GIVEN
+        ActionComposee action = new ActionComposee("Airbus");
+        Portefeuille portefeuille = new Portefeuille();
+
+        // WHEN
+        portefeuille.acheter(action, 25);
+
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(action), "L'action doit être présente dans le portefeuille");
+        Assertions.assertEquals(25, portefeuille.mapLignes.get(action).getQte(), "La quantité d'action doit être 25");
+    }
+    
+     @Test
+    public void testAcheterActionComposeeeQuantiteNOK() {
+        // GIVEN
+        ActionComposee action = new ActionComposee("Airbus");
+        Portefeuille portefeuille = new Portefeuille();
+
+        // WHEN
+        portefeuille.acheter(action, 0);
+
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(action), "L'action doit être présente dans le portefeuille");
+        
+    }
+
+    
+     @Test
+    public void testAcheterActionSimpleNOK() {
+        // GIVEN
+        ActionSimple action = new ActionSimple("Total");
+        Portefeuille portefeuille = new Portefeuille();
+
+        // WHEN
+        portefeuille.acheter(action, 0);
+
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(action), "L'action doit être présente dans le portefeuille");
+       
+    }
 }
