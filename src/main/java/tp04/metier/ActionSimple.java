@@ -9,21 +9,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
- * Démarche de développement agile
- *
+/**
+ * Représente une action simple.
+ * Une action simple est une action avec un libellé et des cours enregistrés pour différents jours.
+ * Cette classe hérite de la classe abstraite Action.
+ * 
  * @author Moli, Nguyen
- *
- * 18/03/2024
- *
- * Copyright
  */
 
 public class ActionSimple extends Action {
-
+  
     // attribut lien
     private ArrayList<Cours> listeCours;
-    
+  
+     /**
+     * Constructeur de la classe ActionSimple.
+     * Initialise une nouvelle instance d'une action simple avec le libellé spécifié.
+     * 
+     * @param libelle Le libellé de l'action simple.
+     */
     // constructeur
     public ActionSimple(String libelle) throws Exception {
         // Action simple initialisée comme 1 action
@@ -34,8 +38,13 @@ public class ActionSimple extends Action {
         // init spécifique
         this.listeCours = new ArrayList<Cours>();
     }
-
-    // Enrg possible si pas de cours pour ce jour
+  
+    /**
+     * Enregistre un cours pour un jour spécifique.
+     * Si aucun cours n'est enregistré pour le jour donné, un nouveau cours est créé avec la valeur spécifiée.
+     * 
+     * @param cours
+     */
     public void enrgCours(Cours cours) throws Exception {
         if (this.listeCours.contains(cours)) {
             throw new Exception("Ce cours existe déjà dans la liste pour cette action");
@@ -51,9 +60,6 @@ public class ActionSimple extends Action {
             System.out.println(c.getJour() + " - Valeur : " + c.getValeur());
     	}
     }
-    
-    // COurs 1 = (2020, 50), 36
-    // cours 2 = (2020, 50), 32
 
     @Override
     public float valeur(Jour j) {
@@ -61,7 +67,6 @@ public class ActionSimple extends Action {
             if (c.getJour().equals(j)) {
                 return c.getValeur();
             }
-        }
     	return 0;
     }
 }
