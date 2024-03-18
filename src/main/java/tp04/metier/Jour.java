@@ -33,6 +33,9 @@ public class Jour {
     }
 
     public Jour(int annee, int noJour) {
+    	if(noJour <= 0) {
+            throw new IllegalArgumentException("0 must not be used as a valid Day");
+    	}
         this.annee = annee;
         this.noJour = noJour;
     }
@@ -67,5 +70,4 @@ public class Jour {
     public String toString() {
         return "Jour{" + "annee=" + annee + ", noJour=" + noJour + '}';
     }
-
 }

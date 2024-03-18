@@ -5,6 +5,7 @@
  */
 package tp04.metier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,53 +14,59 @@ import java.util.Map;
  * Une action simple est une action avec un libellé et des cours enregistrés pour différents jours.
  * Cette classe hérite de la classe abstraite Action.
  * 
- * @author somebody
+ * @author Moli, Nguyen
  */
+
 public class ActionSimple extends Action {
-
-    // Map pour stocker les cours pour chaque jour
-    private Map<Jour, Cours> mapCours;
-
-    
-    /**
+  
+    // attribut lien
+    private ArrayList<Cours> listeCours;
+  
+     /**
      * Constructeur de la classe ActionSimple.
      * Initialise une nouvelle instance d'une action simple avec le libellé spécifié.
      * 
      * @param libelle Le libellé de l'action simple.
      */
-    
-    
-    public ActionSimple(String libelle) {
+    // constructeur
+    public ActionSimple(String libelle) throws Exception {
         // Action simple initialisée comme 1 action
         super(libelle);
+        if ("".equals(libelle)){
+          throw new Exception("ActionSimple ne peux pas avoir un libelle vide");
+        }
         // init spécifique
-        this.mapCours = new HashMap();
+        this.listeCours = new ArrayList<Cours>();
     }
-
-    
+  
     /**
      * Enregistre un cours pour un jour spécifique.
      * Si aucun cours n'est enregistré pour le jour donné, un nouveau cours est créé avec la valeur spécifiée.
      * 
-     * @param j Le jour pour lequel enregistrer le cours.
-     * @param v La valeur du cours.
+     * @param cours
      */
-    
-    public void enrgCours(Jour j, float v) {
-        if (this.mapCours.containsKey(j) == false) {
-            this.mapCours.put(j, new Cours(j, v));
+    public void enrgCours(Cours cours) throws Exception {
+        if (this.listeCours.contains(cours)) {
+            throw new Exception("Ce cours existe déjà dans la liste pour cette action");
         }
+        else {
+            this.listeCours.add(cours);
+        }
+    }
+    
+    //Fonction permettant d'afficher les cours d'une action simple
+    public void affichageCours () {
+    	for(Cours c : this.listeCours) {
+            System.out.println(c.getJour() + " - Valeur : " + c.getValeur());
+    	}
     }
 
     @Override
     public float valeur(Jour j) {
-       // Vérifie si un cours est enregistré pour le jour donné
-        if (this.mapCours.containsKey(j) == true) {
-            // Si un cours est trouvé, retourne sa valeur
-            return this.mapCours.get(j).getValeur();
-        } else {
-            // Si aucun cours n'est trouvé, retourne 0
-            return 0; // definition d'une constante possible
-        }
+        for(Cours c : this.listeCours) {
+            if (c.getJour().equals(j)) {
+                return c.getValeur();
+            }
+    	return 0;
     }
 }

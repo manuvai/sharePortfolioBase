@@ -13,12 +13,13 @@ import java.util.Map;
  * Représente une action composée.
  * Une action composée est une combinaison d'actions simples avec des pourcentages associés à chacune d'elles.
  * Cette classe hérite de la classe abstraite Action.
- * @author somebody
+ * @author Moli Nguyen
  */
 public class ActionComposee extends Action {
 
     // Map pour stocker les actions simples avec leur pourcentage dans le panier de l'action composée
     Map<ActionSimple, Float> mapPanier;
+
 
      /**
      * Constructeur de la classe ActionComposee.
@@ -26,8 +27,12 @@ public class ActionComposee extends Action {
      * 
      * @param libelle Le libellé de l'action composée.
      */
-    public ActionComposee(String libelle) {
+    public ActionComposee(String libelle) throws Exception {
         super(libelle);
+        // Vérification permettant de vérifier le constructeur
+        if ("".equals(libelle)){
+          throw new Exception("ActionComposée ne peux pas avoir un libelle vide");
+        }
         this.mapPanier = new HashMap();
     }
     
@@ -38,8 +43,22 @@ public class ActionComposee extends Action {
      * @param pourcentage Le pourcentage associé à l'action simple dans le panier.
      */
 
-    public void enrgComposition(ActionSimple as, float pourcentage) {
-        this.mapPanier.put(as, pourcentage);
+     // Fonction permettant d'enregistrer une action simple 
+    public void enrgComposition(ActionSimple as, float pourcentage) throws Exception {
+        if (pourcentage <= 0) {
+            throw new Exception("Le pourcentage ne peux pas être inférieur ou égale a 0");
+            }
+        else {
+            this.mapPanier.put(as, pourcentage);
+        }
+    }
+    
+    // Fonction permettant d'afficher la liste des cours d'une action composée
+    public void affichageCours () {     
+        //Parcours le Map
+    	for(ActionSimple as : this.mapPanier.keySet()) {
+    		System.out.println(as.getLibelle() + "-pourcentage : " + mapPanier.get(as));
+    	}
     }
 
     @Override
@@ -55,5 +74,4 @@ public class ActionComposee extends Action {
 
         return valeur;
     }
-
 }
