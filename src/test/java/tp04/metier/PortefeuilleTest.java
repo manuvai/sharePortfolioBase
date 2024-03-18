@@ -250,4 +250,51 @@ public class PortefeuilleTest {
     Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionComposee), "La nouvelle action composée doit être ajoutée au portefeuille");
     Assertions.assertEquals(20, portefeuille.mapLignes.get(nouvelleActionComposee).getQte(), "La quantité de la nouvelle action composée doit être de 20");
     }
+    
+    @Test
+    public void testEvolutionValeurTotalPortefeuille(){
+        // Arrange
+        final int DEFAULT_YEAR1 = 2024;
+        final int DEFAULT_DAY1 = 18;
+        final Jour jour1 = new Jour(DEFAULT_YEAR1, DEFAULT_DAY1);
+        
+        final int DEFAULT_YEAR2 = 2024;
+        final int DEFAULT_DAY2 = 24;
+        final Jour jour2 = new Jour(DEFAULT_YEAR2, DEFAULT_DAY2);
+
+        // Action
+        Portefeuille portefeuille = new Portefeuille();
+        
+        //actionSimple
+        ActionSimple action1 = new ActionSimple("action1");
+        ActionSimple action2 = new ActionSimple("action2");
+        ActionSimple action3 = new ActionSimple("action3");
+        
+        action1.enrgCours(jour1,15.0f);
+        action2.enrgCours(jour1,12.0f);
+        action3.enrgCours(jour1,11.0f);
+        
+        action1.enrgCours(jour2,30.0f);
+        action2.enrgCours(jour2,20.0f);
+        action3.enrgCours(jour2,50.0f);
+       
+        portefeuille.acheter(action1, 2);
+
+
+        //actionComposé
+        ActionComposee action4 = new ActionComposee("action4");
+        action4.enrgComposition(action2, 0.5f);
+        action4.enrgComposition(action3, 0.5f);
+
+        portefeuille.acheter(action4, 100);
+
+        //calculer
+        final float expectedTotalValue = (float)((30.0 * 2 + 20.0 * 0.5 * 100 + 50.0 * 0.5 * 100 )-(15.0 * 2 + 12.0 * 0.5 * 100 + 11.0 * 0.5 * 100 ));
+        final float actualTotalValue = portefeuille.evolutionPortefeuille(jour1, jour2);
+       
+
+        // Assert
+        Assertions.assertEquals(expectedTotalValue, actualTotalValue, "VisualisationEvolutionValeurTotalPortefeuille KO");
+    }
+    
 }
