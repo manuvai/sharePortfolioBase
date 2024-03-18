@@ -9,43 +9,85 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Représente un portefeuille d'actions.
+ * Un portefeuille contient un ensemble d'actions avec les quantités correspondantes.
+ * Il permet d'acheter et de vendre des actions, ainsi que de calculer la valeur totale du portefeuille.
+ * 
  * @author somebody
  */
 public class Portefeuille {
 
+    // Map pour stocker les actions avec les quantités correspondantes
     Map<Action, LignePortefeuille> mapLignes;
 
+    
+     /**
+     * Représente une ligne du portefeuille contenant une action et sa quantité.
+     */
     public class LignePortefeuille {
 
         private  Action action;
         private int qte;
 
+        /**
+         * Obtient la quantité d'action dans cette ligne du portefeuille.
+         * 
+         * @return La quantité d'action.
+         */
         public int getQte() {
             return qte;
         }
 
+        /**
+         * Définit la quantité d'action dans cette ligne du portefeuille.
+         * 
+         * @param qte La nouvelle quantité d'action.
+         */
         public void setQte(int qte) {
             this.qte = qte;
         }
 
+         /**
+         * Obtient l'action associée à cette ligne du portefeuille.
+         * 
+         * @return L'action associée.
+         */
+        
         public Action getAction() {
             return this.action;
         }
 
+         /**
+         * Constructeur de la classe LignePortefeuille.
+         * Initialise une nouvelle instance de ligne de portefeuille avec l'action et la quantité spécifiées.
+         * 
+         * @param action L'action associée à cette ligne.
+         * @param qte La quantité d'action dans cette ligne.
+         */
+        
         public LignePortefeuille(Action action, int qte) {
             this.action = action;
             this.qte = qte;
         }
+        
+        /**
+         * Retourne une représentation de la quantité d'action sous forme de chaîne de caractères.
+         * 
+         * @return La quantité d'action sous forme de chaîne de caractères.
+         */
 
         public String toString() {
             return Integer.toString(qte);
         }
     }
 
-    public Portefeuille() {
-        this.mapLignes = new HashMap();
-    }
+        /**
+       * Constructeur de la classe Portefeuille.
+       * Initialise un nouveau portefeuille avec une map vide pour stocker les lignes du portefeuille.
+       */
+        public Portefeuille() {
+            this.mapLignes = new HashMap();
+        }
 
     
     /** 
@@ -114,6 +156,15 @@ public class Portefeuille {
         return this.mapLignes.toString();
     }
 
+    
+    /**
+     * Calcule la valeur totale du portefeuille pour une journée donnée.
+     * La valeur totale est la somme des valeurs de chaque action multipliée par sa quantité.
+     *
+     * @param j Le jour pour lequel calculer la valeur du portefeuille.
+     * @return La valeur totale du portefeuille pour le jour spécifié.
+     */
+    
     public float valeur(Jour j) {
         float total = 0;
         for (LignePortefeuille lp : this.mapLignes.values()) {

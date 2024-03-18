@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  *
- * @author theo
+ * @author Yiyang/Manuvai/Yifan
  */
 public class PortefeuilleTest {
 
@@ -127,7 +127,12 @@ public class PortefeuilleTest {
         Assertions.assertNull(portefeuille.mapLignes.get(action), "Vente d'actions composées KO");
 
     }
+  
     
+ /**
+ *
+ * @author Fatima/Yassine
+ */
     @Test
     public void testAcheterActionSimpleQuantiteTotaleOK() {
         // GIVEN

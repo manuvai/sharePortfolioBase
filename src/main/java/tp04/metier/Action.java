@@ -9,6 +9,8 @@ import java.util.Objects;
 
 /**
  *
+ * Classe abstraite représentant une action.
+ * Une action peut être une action simple ou une action composée.
  * @author somebody
  */
 public abstract class Action {
@@ -24,9 +26,21 @@ public abstract class Action {
         return libelle;
     }
 
+     /**
+     * Constructeur de la classe Action.
+     * 
+     * @param libelle Le libellé de l'action.
+     */
     public Action(String libelle) {
         this.libelle = libelle;
     }
+    
+    /**
+     * Méthode abstraite pour calculer la valeur de l'action pour un jour donné.
+     * 
+     * @param j Le jour pour lequel calculer la valeur de l'action.
+     * @return La valeur de l'action pour le jour donné.
+     */
 
     public abstract float valeur(Jour j);
 
