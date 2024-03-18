@@ -151,14 +151,15 @@ public class Portefeuille {
 
     
     /**
-     * Calcule la valeur totale du portefeuille pour une journée donnée.
-     * La valeur totale est la somme des valeurs de chaque action multipliée par sa quantité.
-     *
-     * @param j Le jour pour lequel calculer la valeur du portefeuille.
-     * @return La valeur totale du portefeuille pour le jour spécifié.
-     */
-    
-    public float valeur(Jour j) {
+    * Calcule la valeur totale du portefeuille pour une journée spécifiée.
+    * La valeur totale est obtenue en additionnant la valeur de chaque ligne d'action dans le portefeuille
+    * pour la journée donnée, où la valeur de chaque ligne est le produit de la quantité d'actions détenue
+    * et la valeur de l'action pour cette journée.
+    * 
+    * @param j La journée pour calculer la valeur totale du portefeuille.
+    * @return La valeur totale du portefeuille pour la journée spécifiée.
+    */
+    public final float valeur(final Jour j) {
         float total = 0;
         for (LignePortefeuille lp : this.mapLignes.values()) {
             total = total + (lp.getQte() * lp.getAction().valeur(j));
