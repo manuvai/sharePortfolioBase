@@ -28,8 +28,7 @@ public class ActionSimple extends Action {
 
     
     /**
-     * Constructeur de la classe ActionSimple.
-     * Initialise une nouvelle instance d'une action simple avec le libellé spécifié.
+     * Constructeur de la classe ActionSimple.Initialise une nouvelle instance d'une action simple avec le libellé spécifié.
      * 
      * @param libelle Le libellé de l'action simple.
      */    
@@ -44,8 +43,7 @@ public class ActionSimple extends Action {
     }
 
     /**
-     * Enregistre un cours pour un jour spécifique.
-     * Si aucun cours n'est enregistré pour le jour donné, un nouveau cours est créé avec la valeur spécifiée.
+     * Enregistre un cours pour un jour spécifique.Si aucun cours n'est enregistré pour le jour donné, un nouveau cours est créé avec la valeur spécifiée.
      * 
      * @param cours La valeur du cours.
      */

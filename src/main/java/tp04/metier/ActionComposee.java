@@ -60,6 +60,17 @@ public class ActionComposee extends Action {
     		System.out.println(as.getLibelle() + "-pourcentage : " + mapPanier.get(as));
     	}
     }
+    
+      // Fonction permettant de supprimer une action composée
+    public void suppressionCours(ActionSimple as) throws Exception {
+        //verification du cours dans la Map
+        if (this.mapPanier.containsKey(as)) {
+           this.mapPanier.remove(as);
+        }
+        else {
+            throw new Exception("Ce cours n'existe pas dans la liste pour cette action");
+        }
+    }
 
     @Override
     public float valeur(Jour j) {

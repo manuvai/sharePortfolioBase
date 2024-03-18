@@ -24,18 +24,24 @@ import org.junit.jupiter.api.Test;
  */
 public class ActionComposeeTest {
     /** Paramètre **/
-        private static final String DEFAULT_LABEL = "France";
-        @Test
-        // Test Permettant de tester le constructeur
-        protected void testConstructorParametersAreCorrectSuccess() throws Exception {
-            //Arrange
-            final ActionComposee actionComposee= new ActionComposee(DEFAULT_LABEL);
+    private static final String DEFAULT_LABEL = "France";
+    
+    @Test
+    // Test Permettant de tester le constructeur
+    protected void testConstructorParametersAreCorrectSuccess() throws Exception {
+        //Arrange
+        final ActionComposee actionComposee= new ActionComposee(DEFAULT_LABEL);
 
-            //Action
-            final String expectedToString = DEFAULT_LABEL;
-            final String currentToString = actionComposee.toString();
+        //Action
+        final String expectedToString = DEFAULT_LABEL;
+        final String currentToString = actionComposee.toString();
 
-            //Assert
-            Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
-        }
+        //Assert
+        Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
+    }
+    
+    @Test
+    protected void testConstructorValueIncorrectShouldFail() {
+   
+    }
 }

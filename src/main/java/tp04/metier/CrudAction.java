@@ -27,7 +27,6 @@ import java.util.ArrayList;
  * Copyright
  */
 
-
 public class CrudAction {
 
 	// Paramètres 
