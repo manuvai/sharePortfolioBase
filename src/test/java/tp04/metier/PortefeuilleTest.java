@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  *
- * @author theo
+ * @author Yiyang/Manuvai/Yifan
  */
 public class PortefeuilleTest {
 
@@ -127,6 +127,7 @@ public class PortefeuilleTest {
         Assertions.assertNull(portefeuille.mapLignes.get(action), "Vente d'actions composées KO");
 
     }
+
     
     
     @Test
@@ -165,6 +166,128 @@ public class PortefeuilleTest {
 
         // Assert
         Assertions.assertEquals(expectedTotalValue, actualTotalValue, "VisualisationValeurTotalParJour KO");
+}
+  
+    
+ /**
+ *
+ * @author Fatima/Yassine
+ */
+    @Test
+    public void testAcheterActionSimpleQuantiteTotaleOK() {
+        // GIVEN
+        ActionSimple action = new ActionSimple("Total");
+        Portefeuille portefeuille = new Portefeuille();
+
+        // WHEN
+        portefeuille.acheter(action, 10);
+
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(action), "L'action doit être présente dans le portefeuille");
+        Assertions.assertEquals(10, portefeuille.mapLignes.get(action).getQte(), "La quantité d'action doit être 10");
+    }
+    
+    
+     @Test
+    public void testAcheterActionComposeeeQuantiteTotaleOK() {
+        // GIVEN
+        ActionComposee action = new ActionComposee("Airbus");
+        Portefeuille portefeuille = new Portefeuille();
+
+        // WHEN
+        portefeuille.acheter(action, 25);
+
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(action), "L'action doit être présente dans le portefeuille");
+        Assertions.assertEquals(25, portefeuille.mapLignes.get(action).getQte(), "La quantité d'action doit être 25");
+    }
+    
+     @Test
+    public void testAcheterActionComposeeeQuantiteNOK() {
         
+    String expectedMessage = "La quantité doit être supérieure à 0 pour acheter cette action";
+        // GIVEN
+        ActionComposee action = new ActionComposee("Airbus");
+        Portefeuille portefeuille = new Portefeuille();
+
+      
+        // THEN
+        IllegalArgumentException assertThrowsExactly = Assertions.assertThrowsExactly(
+                IllegalArgumentException.class,
+                () -> portefeuille.acheter(action, 0),
+                "0");
+
+        final String currentMessage = assertThrowsExactly.getMessage();
+
+        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+        
+    }
+
+    
+     @Test
+    public void testAcheterActionSimpleNOK() {
+        
+       String expectedMessage = "La quantité doit être supérieure à 0 pour acheter cette action";
+         // GIVEN
+        ActionSimple action = new ActionSimple("Total");
+        Portefeuille portefeuille = new Portefeuille();
+
+        // THEN
+        IllegalArgumentException assertThrowsExactly = Assertions.assertThrowsExactly(
+                IllegalArgumentException.class,
+                () -> portefeuille.acheter(action, 0),
+                "0");
+
+        final String currentMessage = assertThrowsExactly.getMessage();
+
+        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+       
+    }
+    @Test
+    public void testModifierActionSimpleQuantiteMiseAJourOK() {
+    // GIVEN
+    ActionSimple actionExistante = new ActionSimple("Total");
+    Portefeuille portefeuille = new Portefeuille();
+    portefeuille.acheter(actionExistante, 10);
+
+    // WHEN
+    portefeuille.modifierAction(actionExistante, 20);
+
+    // THEN
+    Assertions.assertEquals(20, portefeuille.mapLignes.get(actionExistante).getQte(), "La quantité de l'action existante doit être mise à jour à 20");
+
+    // GIVEN
+    ActionSimple nouvelleActionSimple = new ActionSimple("NouvelleActionSimple");
+
+    // WHEN
+    portefeuille.modifierAction(nouvelleActionSimple, 15);
+
+    // THEN
+    Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionSimple), "La nouvelle action simple doit être ajoutée au portefeuille");
+    Assertions.assertEquals(15, portefeuille.mapLignes.get(nouvelleActionSimple).getQte(), "La quantité de la nouvelle action simple doit être de 15");
+    }
+    
+    @Test
+    public void testModifierActionComposeeQuantiteMiseAJourOK() {
+    // GIVEN
+    ActionComposee actionComposeeExistante = new ActionComposee("Energies");
+    Portefeuille portefeuille = new Portefeuille();
+    portefeuille.acheter(actionComposeeExistante, 5);
+
+    // WHEN
+    portefeuille.modifierAction(actionComposeeExistante, 10);
+
+    // THEN
+    Assertions.assertEquals(10, portefeuille.mapLignes.get(actionComposeeExistante).getQte(), "La quantité de l'action composée existante doit être mise à jour à 10");
+
+    // GIVEN
+    ActionComposee nouvelleActionComposee = new ActionComposee("NouveauSecteur");
+
+    // WHEN
+    portefeuille.modifierAction(nouvelleActionComposee, 20);
+
+    // THEN
+    Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionComposee), "La nouvelle action composée doit être ajoutée au portefeuille");
+    Assertions.assertEquals(20, portefeuille.mapLignes.get(nouvelleActionComposee).getQte(), "La quantité de la nouvelle action composée doit être de 20");
     }
 }
