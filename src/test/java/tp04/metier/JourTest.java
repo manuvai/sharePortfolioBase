@@ -55,6 +55,5 @@ public class JourTest {
         }, "0 must not be used as a valid Day");
         final String currentMessage = assertThrowsExactly.getMessage();
         Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
-
     }
 }

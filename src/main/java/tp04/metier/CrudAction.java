@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class CrudAction {
 
 	// Paramètres 
-	private ArrayList<Action> ListeActions = new ArrayList<Action>();
+	private ArrayList<Action> ListeActions = new ArrayList<>();
 
 	public CrudAction() {
 		super();
@@ -46,13 +46,13 @@ public class CrudAction {
 	}
 	
 	// Fonction permettant d'enregistrer une action dans la liste d'action simple
-	public void EnregistrerAction ( Action action ) {
+	public void enregistrerAction ( Action action ) {
 		// Ajout a la liste
 		this.ListeActions.add(action);
 	}
 	
         // Fonction permettant d'afficher une liste d'actions
-	public void AffichageListeAction () {
+	public void affichageListeAction () {
 		System.out.println("Affichage Liste d'actions");
 		for (Action a : this.ListeActions) {
 			System.out.println(a.getLibelle());
@@ -60,7 +60,7 @@ public class CrudAction {
 	}
         
         // Fonction permettant d'enlever une action de la liste d'actions
-	public void EnleverAction ( Action action ) {
+	public void enleverAction ( Action action ) {
 		// Ajout a la liste
 		this.ListeActions.remove(action);
 	}
