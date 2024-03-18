@@ -203,4 +203,51 @@ public class PortefeuilleTest {
         Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
        
     }
+    @Test
+    public void testModifierActionSimpleQuantiteMiseAJourOK() {
+    // GIVEN
+    ActionSimple actionExistante = new ActionSimple("Total");
+    Portefeuille portefeuille = new Portefeuille();
+    portefeuille.acheter(actionExistante, 10);
+
+    // WHEN
+    portefeuille.modifierAction(actionExistante, 20);
+
+    // THEN
+    Assertions.assertEquals(20, portefeuille.mapLignes.get(actionExistante).getQte(), "La quantité de l'action existante doit être mise à jour à 20");
+
+    // GIVEN
+    ActionSimple nouvelleActionSimple = new ActionSimple("NouvelleActionSimple");
+
+    // WHEN
+    portefeuille.modifierAction(nouvelleActionSimple, 15);
+
+    // THEN
+    Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionSimple), "La nouvelle action simple doit être ajoutée au portefeuille");
+    Assertions.assertEquals(15, portefeuille.mapLignes.get(nouvelleActionSimple).getQte(), "La quantité de la nouvelle action simple doit être de 15");
+    }
+    
+    @Test
+    public void testModifierActionComposeeQuantiteMiseAJourOK() {
+    // GIVEN
+    ActionComposee actionComposeeExistante = new ActionComposee("Energies");
+    Portefeuille portefeuille = new Portefeuille();
+    portefeuille.acheter(actionComposeeExistante, 5);
+
+    // WHEN
+    portefeuille.modifierAction(actionComposeeExistante, 10);
+
+    // THEN
+    Assertions.assertEquals(10, portefeuille.mapLignes.get(actionComposeeExistante).getQte(), "La quantité de l'action composée existante doit être mise à jour à 10");
+
+    // GIVEN
+    ActionComposee nouvelleActionComposee = new ActionComposee("NouveauSecteur");
+
+    // WHEN
+    portefeuille.modifierAction(nouvelleActionComposee, 20);
+
+    // THEN
+    Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionComposee), "La nouvelle action composée doit être ajoutée au portefeuille");
+    Assertions.assertEquals(20, portefeuille.mapLignes.get(nouvelleActionComposee).getQte(), "La quantité de la nouvelle action composée doit être de 20");
+    }
 }
