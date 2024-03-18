@@ -190,4 +190,28 @@ public class Portefeuille {
             mapLignes.put(a, new LignePortefeuille(a, nouvelleQte));
         }
     }
+    
+    /**
+     * Calcule et retourne le nombre maximum d'actions achetables d'une action spécifique
+     * pour un montant donné à un jour donné.
+     * 
+     * @param a L'action à acheter.
+     * @param montant Le montant disponible pour l'achat.
+     * @param jour Le jour pour lequel l'achat est envisagé.
+     * @return Le nombre maximum d'actions achetables avec le montant donné.
+     */
+    public int nombreActionsAchetables(Action a, float montant, Jour jour) {
+        float valeurAction = a.valeur(jour);
+        
+        if (valeurAction <= 0) {
+            throw new IllegalArgumentException("La valeur de l'action doit être supérieure à 0 pour effectuer un achat.");
+        }
+        
+        // Calcule le nombre d'actions achetables
+        int nombreActions = (int) (montant / valeurAction);
+        
+        return nombreActions;
+    }
+    
+    
 }

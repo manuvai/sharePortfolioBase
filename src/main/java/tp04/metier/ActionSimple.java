@@ -67,6 +67,8 @@ public class ActionSimple extends Action {
             if (c.getJour().equals(j)) {
                 return c.getValeur();
             }
-    	return 0;
-    }
+    	
+            }
+        return 0;
+        }
 }
