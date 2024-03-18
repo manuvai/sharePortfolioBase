@@ -16,7 +16,7 @@ public class Portefeuille {
 
     Map<Action, LignePortefeuille> mapLignes;
 
-    private class LignePortefeuille {
+    public class LignePortefeuille {
 
         private Action action;
 
@@ -56,12 +56,32 @@ public class Portefeuille {
         }
     }
 
-    public void vendre(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == true) {
-            if (this.mapLignes.get(a).getQte() > q) {
-                this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() - q);
-            } else if (this.mapLignes.get(a).getQte() == q) {
-                this.mapLignes.remove(a);
+    /**
+     * Vend une quantité spécifiée d'une certaine action.
+     * Si la quantité disponible est supérieure à la quantité spécifiée,
+     * la quantité disponible est diminuée de la quantité spécifiée.
+     * Si la quantité disponible est égale à la quantité spécifiée, l'action est supprimée de la map.
+     *
+     * @param a L'action à vendre.
+     * @param q La quantité à vendre.
+     */
+    public final void vendre(final Action a, final int q) {
+
+        if (q <= 0) {
+            throw new IllegalArgumentException("La quantité doit être supérieure à 0 pour vendre cette action");
+        }
+
+        if (mapLignes.containsKey(a)) {
+            int qte = mapLignes.get(a).getQte();
+
+            if (q > qte) {
+                throw new IllegalArgumentException("La quantité demandée est supérieure à ce que vous possédez");
+            }
+
+            if (qte > q) {
+                mapLignes.get(a).setQte(qte - q);
+            } else {
+                mapLignes.remove(a);
             }
         }
     }
