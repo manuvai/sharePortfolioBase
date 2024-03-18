@@ -54,5 +54,18 @@ public class Main {
 		listeActions.EnregistrerAction(Facebook);
 		
 		listeActions.AffichageListeAction();
+                
+                //Ajouter action composée
+                ActionComposee FranceTv = new ActionComposee("FranceTV");
+                ActionComposee CanalPlus = new ActionComposee("6play");
+                ActionComposee Meta = new ActionComposee("Meta");
+                
+                FranceTv.enrgComposition(France1, 10);
+                FranceTv.enrgComposition(M6, 25);
+                
+                Meta.enrgComposition(Facebook,14);
+                
+                FranceTv.affichageCours();
+                
 	}
 }

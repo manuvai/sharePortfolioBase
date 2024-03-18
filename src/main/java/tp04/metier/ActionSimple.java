@@ -24,23 +24,17 @@ public class ActionSimple extends Action {
     // attribut lien
     private ArrayList<Cours> listeCours;
     
-    // ({ 202056 , 23},{ 202056 , 26},)
-
     // constructeur
-    public ActionSimple(String libelle) {
+    public ActionSimple(String libelle) throws Exception {
         // Action simple initialisée comme 1 action
         super(libelle);
+        if (libelle == ""){
+          throw new Exception("ActionSimple ne peux pas avoir un libelle vide");
+        }
         // init spécifique
         this.listeCours = new ArrayList<Cours>();
     }
 
-    // enrg possible si pas de cours pour ce jour
-	//    public void enrgCours(Jour j, float v) {
-	//        if (this.mapCours.containsKey(j) == false) {
-	//            this.mapCours.put(j, new Cours(j, v));
-	//        }
-	//    }
-    
     // Enrg possible si pas de cours pour ce jour
     public void enrgCours(Cours cours) throws Exception {
     	        if (this.listeCours.contains(cours)) {
@@ -52,6 +46,7 @@ public class ActionSimple extends Action {
     	        }
     	    }
     
+    //Fonction permettant d'afficher les cours d'une action simple
     public void affichageCours () {
     	System.out.println("Affichage de la liste des cours pour : " + this.getLibelle());
     	for(Cours c : this.listeCours) {
