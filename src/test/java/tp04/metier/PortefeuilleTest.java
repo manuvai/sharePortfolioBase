@@ -127,5 +127,75 @@ public class PortefeuilleTest {
         Assertions.assertNull(portefeuille.mapLignes.get(action), "Vente d'actions composées KO");
 
     }
+    
+    @Test
+    public void testAcheterActionSimpleQuantiteTotaleOK() {
+        // GIVEN
+        ActionSimple action = new ActionSimple("Total");
+        Portefeuille portefeuille = new Portefeuille();
 
+        // WHEN
+        portefeuille.acheter(action, 10);
+
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(action), "L'action doit être présente dans le portefeuille");
+        Assertions.assertEquals(10, portefeuille.mapLignes.get(action).getQte(), "La quantité d'action doit être 10");
+    }
+    
+    
+     @Test
+    public void testAcheterActionComposeeeQuantiteTotaleOK() {
+        // GIVEN
+        ActionComposee action = new ActionComposee("Airbus");
+        Portefeuille portefeuille = new Portefeuille();
+
+        // WHEN
+        portefeuille.acheter(action, 25);
+
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(action), "L'action doit être présente dans le portefeuille");
+        Assertions.assertEquals(25, portefeuille.mapLignes.get(action).getQte(), "La quantité d'action doit être 25");
+    }
+    
+     @Test
+    public void testAcheterActionComposeeeQuantiteNOK() {
+        
+    String expectedMessage = "La quantité doit être supérieure à 0 pour acheter cette action";
+        // GIVEN
+        ActionComposee action = new ActionComposee("Airbus");
+        Portefeuille portefeuille = new Portefeuille();
+
+      
+        // THEN
+        IllegalArgumentException assertThrowsExactly = Assertions.assertThrowsExactly(
+                IllegalArgumentException.class,
+                () -> portefeuille.acheter(action, 0),
+                "0");
+
+        final String currentMessage = assertThrowsExactly.getMessage();
+
+        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+        
+    }
+
+    
+     @Test
+    public void testAcheterActionSimpleNOK() {
+        
+       String expectedMessage = "La quantité doit être supérieure à 0 pour acheter cette action";
+         // GIVEN
+        ActionSimple action = new ActionSimple("Total");
+        Portefeuille portefeuille = new Portefeuille();
+
+        // THEN
+        IllegalArgumentException assertThrowsExactly = Assertions.assertThrowsExactly(
+                IllegalArgumentException.class,
+                () -> portefeuille.acheter(action, 0),
+                "0");
+
+        final String currentMessage = assertThrowsExactly.getMessage();
+
+        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+       
+    }
 }

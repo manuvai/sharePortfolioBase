@@ -18,8 +18,7 @@ public class Portefeuille {
 
     public class LignePortefeuille {
 
-        private Action action;
-
+        private  Action action;
         private int qte;
 
         public int getQte() {
@@ -48,19 +47,37 @@ public class Portefeuille {
         this.mapLignes = new HashMap();
     }
 
+    
+    /** 
+     * Achat une quantité spécifiée d'une certaine action.
+     * Si l'action n'est pas présente dans le portefeuille, elle est ajoutée avec la quantité spécifiée.
+     * Si l'action est déjà présente, la quantité existante est mise à jour en ajoutant la quantité spécifiée. 
+     *
+     * @param a l'action à acheter.
+     * @param q la quantité à acheter
+     */
+    
     public void acheter(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == false) {
-            this.mapLignes.put(a, new LignePortefeuille(a, q));
-        } else {
-            this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() + q);
-        }
+    if (q <= 0) {
+        throw new IllegalArgumentException("La quantité doit être supérieure à 0 pour acheter cette action");
     }
 
+    // Si l'action n'est pas présente dans le portefeuille, l'ajouter avec la quantité spécifiée
+    if (!mapLignes.containsKey(a)) {
+        mapLignes.put(a, new LignePortefeuille(a, q));
+    } else {
+    // Si l'action est déjà présente, mettre à jour la quantité existante en ajoutant la quantité spécifiée
+        mapLignes.get(a).setQte(mapLignes.get(a).getQte() + q);
+    }
+}
+    
+    
     /**
      * Vend une quantité spécifiée d'une certaine action.
      * Si la quantité disponible est supérieure à la quantité spécifiée,
      * la quantité disponible est diminuée de la quantité spécifiée.
-     * Si la quantité disponible est égale à la quantité spécifiée, l'action est supprimée de la map.
+     * Si la quantité disponible est égale à la quantité spécifiée, l'action est
+     * supprimée de la map.
      *
      * @param a L'action à vendre.
      * @param q La quantité à vendre.
@@ -86,6 +103,13 @@ public class Portefeuille {
         }
     }
 
+    /*
+     * a revoir une modification
+     * 
+     * @author Fatima @author yassine
+     * 
+     */
+
     public String toString() {
         return this.mapLignes.toString();
     }
@@ -97,4 +121,8 @@ public class Portefeuille {
         }
         return total;
     }
+
+    
+
+
 }
