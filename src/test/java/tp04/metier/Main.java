@@ -50,10 +50,10 @@ public class Main {
 		France1.affichageCours();
 		
 		CrudAction listeActions = new CrudAction();
-		listeActions.EnregistrerAction(France1);
-		listeActions.EnregistrerAction(Facebook);
+		listeActions.enregistrerAction(France1);
+		listeActions.enregistrerAction(Facebook);
 		
-		listeActions.AffichageListeAction();
+		listeActions.affichageListeAction();
                 
                 //Ajouter action composée
                 ActionComposee FranceTv = new ActionComposee("FranceTV");
