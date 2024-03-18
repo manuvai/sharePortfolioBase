@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Usuari.
+ * Copyright 2024 21705637.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,20 @@ import org.junit.jupiter.api.Test;
 
 /**
  *
- * @author NGUYEN, MOLI
+ * @author Moli et NGUYEN
  */
-public class ActionSimpleTest {
-    
-        /** Paramètre **/
+public class ActionComposeeTest {
+    /** Paramètre **/
         private static final String DEFAULT_LABEL = "France";
         @Test
         // Test Permettant de tester le constructeur
         protected void testConstructorParametersAreCorrectSuccess() throws Exception {
             //Arrange
-            final ActionSimple actionSimple = new ActionSimple(DEFAULT_LABEL);
+            final ActionComposee actionComposee= new ActionComposee(DEFAULT_LABEL);
 
             //Action
             final String expectedToString = DEFAULT_LABEL;
-            final String currentToString = actionSimple.toString();
+            final String currentToString = actionComposee.toString();
 
             //Assert
             Assertions.assertEquals(expectedToString, currentToString, "Basic construction");

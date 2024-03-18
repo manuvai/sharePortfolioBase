@@ -26,7 +26,7 @@ public class CoursTest {
     private static final int DEFAULT_YEAR = 1;
 
     @Test
-    protected void testConstructorParametersAreCorrectSuccess() {
+    protected void testConstructorParametersAreCorrectSuccess() throws Exception {
         //Arrange
         final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
         final Cours cours = new Cours(jour,DEFAULT_VALUE_COURS) ;
@@ -39,15 +39,7 @@ public class CoursTest {
         //Assert
         Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
     }
-    
-//    
-//	if(aJour.getNoJour() <= 0) {
-//  		 throw new IllegalArgumentException("0 must not be used as a valid Day");
-//   	}
-//   	if(aValeur < 0) {
-//     		 throw new IllegalArgumentException("negatif number must not be used as a valid Value");
-//      	}
-//   	
+	
     @Test
     protected void testConstructorValueIncorrectShouldFail() {
     	 final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);

@@ -51,10 +51,17 @@ public class CrudAction {
 		this.ListeActions.add(action);
 	}
 	
+        // Fonction permettant d'afficher une liste d'actions
 	public void AffichageListeAction () {
 		System.out.println("Affichage Liste d'actions");
 		for (Action a : this.ListeActions) {
 			System.out.println(a.getLibelle());
 		}
+	}
+        
+        // Fonction permettant d'enlever une action de la liste d'actions
+	public void EnleverAction ( Action action ) {
+		// Ajout a la liste
+		this.ListeActions.remove(action);
 	}
 }
