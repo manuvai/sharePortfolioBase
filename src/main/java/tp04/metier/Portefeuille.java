@@ -142,27 +142,6 @@ public class Portefeuille {
      * 
      */
 
-    public void acheterActionSimple(String libelle, int quantite, Jour jour, float cours) {
-
-        // Parcours des actions dans le portefeuille
-        Action actionTrouvee = null;
-        for (Action a : this.mapLignes.keySet()) {
-            if (a.getLibelle().equals(libelle) && a instanceof ActionSimple) {
-                actionTrouvee = a;
-                break;
-            }
-        }
-        // Si l'action simple existe dans le portefeuille
-        if (actionTrouvee != null) {
-            LignePortefeuille lp = this.mapLignes.get(actionTrouvee);
-            lp.setQte(lp.getQte() + quantite);
-            ((ActionSimple) actionTrouvee).enrgCours(jour, cours);
-        } else {
-            ActionSimple nouvelleAction = new ActionSimple(libelle);
-            nouvelleAction.enrgCours(jour, cours);
-            this.mapLignes.put(nouvelleAction, new LignePortefeuille(nouvelleAction, quantite));
-        }
-
-    }
+   
 
 }
