@@ -189,4 +189,14 @@ public class Portefeuille {
             mapLignes.put(a, new LignePortefeuille(a, nouvelleQte));
         }
     }
+    
+    
+    public float evolutionPortefeuille(Jour jourDebut, Jour jourFin){
+        float evolution = 0;
+        evolution = valeur(jourFin) - valeur(jourDebut);
+        return evolution;
 }
+}
+
+
+    
