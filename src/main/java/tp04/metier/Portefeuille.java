@@ -16,11 +16,10 @@ public class Portefeuille {
 
     Map<Action, LignePortefeuille> mapLignes;
 
-    private class LignePortefeuille {
+    public class LignePortefeuille {
 
-        private final Action action;
-
-        private int qte;
+        public final Action action;
+        public int qte;
 
         public int getQte() {
             return qte;
@@ -48,13 +47,7 @@ public class Portefeuille {
         this.mapLignes = new HashMap();
     }
 
-    public void acheter(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == false) {
-            this.mapLignes.put(a, new LignePortefeuille(a, q));
-        } else {
-            this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() + q);
-        }
-    }
+  
       
             
             public void vendre(Action a, int q) {
@@ -104,14 +97,13 @@ public class Portefeuille {
     public void acheterActionSimple(String libelle , int quantite , Jour jour,float cours){
         
         // Parcours des actions dans le portefeuille
-        Action actionTrouvee=null;
+        Action actionTrouvee =null;
         for (Action a : this.mapLignes.keySet()) {
-            if (a.getLibelle().equals(libelle) && a instanceof ActionSimple)
-            {
+            if (a.getLibelle().equals(libelle) && a instanceof ActionSimple)  {
                 actionTrouvee = a;
                 break;
-            }  
-                 }
+            }
+        }
         // Si l'action simple existe dans le portefeuille
         if (actionTrouvee != null) {
             LignePortefeuille lp = this.mapLignes.get(actionTrouvee);
