@@ -102,14 +102,7 @@ public class Portefeuille {
             }
         }
     }
-
-    /*
-     * a revoir une modification
-     * 
-     * @author Fatima @author yassine
-     * 
-     */
-
+    
     public String toString() {
         return this.mapLignes.toString();
     }
@@ -121,8 +114,28 @@ public class Portefeuille {
         }
         return total;
     }
-
-    
-
-
+ /**
+    * Modifie la quantité d'une action spécifiée dans le portefeuille.
+    * Si l'action existe déjà, sa quantité est mise à jour avec la nouvelle quantité spécifiée.
+    * Si l'action n'existe pas dans le portefeuille, elle est ajoutée avec la nouvelle quantité.
+    * Une exception est lancée si la nouvelle quantité spécifiée est inférieure ou égale à 0, 
+    * car cela ne représente pas une opération valide sur le portefeuille.
+    *
+    * @param a L'action à modifier.
+    * @param nouvelleQte La nouvelle quantité pour l'action.
+    * @throws IllegalArgumentException Si la nouvelle quantité est inférieure ou égale à 0.
+ */
+    public void modifierAction(Action a, int nouvelleQte){
+         if (nouvelleQte <= 0) {
+            throw new IllegalArgumentException("La quantité doit être supérieure à 0");
+        }
+         LignePortefeuille ligne = mapLignes.get(a);
+        if (ligne != null) {
+            // Si l'action existe déjà, on met à jour la quantité
+            ligne.setQte(nouvelleQte);
+        } else {
+            // Si l'action n'existe pas, on l'ajoute avec la nouvelle quantité
+            mapLignes.put(a, new LignePortefeuille(a, nouvelleQte));
+        }
+    }
 }
