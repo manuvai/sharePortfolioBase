@@ -33,8 +33,15 @@ public class Jour {
     }
 
     public Jour(int annee, int noJour) {
-        this.annee = annee;
-        this.noJour = noJour;
+    	// 	Commenaire
+    	if(noJour <= 0) {
+    		 throw new IllegalArgumentException("0 must not be used as a valid Day");
+    	}
+ 	   this.annee = annee;
+       this.noJour = noJour;
+     
+        
+    
     }
 
     @Override

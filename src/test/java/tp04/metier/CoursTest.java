@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 David Navarre &lt;David.Navarre at irit.fr&gt;.
+ * Copyright 2024 Usuari.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,41 +18,45 @@ package tp04.metier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- *
- * @author David Navarre &lt;David.Navarre at irit.fr&gt;
- */
-public class JourTest {
+public class CoursTest {
 
+    private static final float DEFAULT_VALUE_COURS = 112;
+    private static final float INCORRECT_VALUE_COURS = -5;
     private static final int DEFAULT_DAY = 1;
     private static final int DEFAULT_YEAR = 1;
-    private static final int INCORRECT_DAY = 0;
-    private static final int INCORRECT_YEAR = 0;
-
-    public JourTest() {
-    }
 
     @Test
-    protected void testConstructorParametersAreCorrectSuccess(){
+    protected void testConstructorParametersAreCorrectSuccess() {
         //Arrange
         final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
+        final Cours cours = new Cours(jour,DEFAULT_VALUE_COURS) ;
+  
 
         //Action
-        final String expectedToString = "Jour{" + "annee=" + DEFAULT_YEAR + ", noJour=" + DEFAULT_DAY + '}';
-        final String currentToString = jour.toString();
+        final String expectedToString = "Jour{" + "annee=" + DEFAULT_YEAR + ", noJour=" + DEFAULT_DAY + '}' + DEFAULT_VALUE_COURS;
+        final String currentToString = jour.toString() + cours.getValeur();
 
         //Assert
         Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
     }
-
+    
+//    
+//	if(aJour.getNoJour() <= 0) {
+//  		 throw new IllegalArgumentException("0 must not be used as a valid Day");
+//   	}
+//   	if(aValeur < 0) {
+//     		 throw new IllegalArgumentException("negatif number must not be used as a valid Value");
+//      	}
+//   	
     @Test
-    protected void testConstructorDayIncorrectShouldFail() {
-        //Arrange
-        final String expectedMessage = "0 must not be used as a valid Day";
+    protected void testConstructorValueIncorrectShouldFail() {
+    	 final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
+        //Arrange 
+        final String expectedMessage = "negatif number must not be used as a valid Value";
         //Action and asserts
         IllegalArgumentException assertThrowsExactly = Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
-            new Jour(DEFAULT_YEAR, INCORRECT_DAY);
-        }, "0 must not be used as a valid Day");
+            new Cours(jour, INCORRECT_VALUE_COURS);
+        }, "negatif number must not be used as a valid Value");
         final String currentMessage = assertThrowsExactly.getMessage();
         Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
 
