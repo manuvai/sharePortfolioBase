@@ -122,27 +122,7 @@ public class Portefeuille {
         return total;
     }
 
-    /*
-     * Cette fonction permet d'acheter une action simple et d'enregistrer son cours
-     * pour la journée donnée.
-     * Si l'action simple existe déjà dans le portefeuille, la quantité est mise à
-     * jour et le cours est enregistré pour la journée spécifiée.
-     * Si l'action simple n'existe pas dans le portefeuille, une nouvelle action
-     * simple est créée avec le cours enregistré pour la journée spécifiée.
-     * 
-     * @param libelle le libellé de l'action simple à acheter
-     * 
-     * @param quantite la quantité d'actions à acheter
-     * 
-     * @param jour le jour pour lequel enregistrer le cours
-     * 
-     * @param cours le cours de l'action pour le jour donné
-     * 
-     * @author Fatima @author yassine
-     * 
-     */
-
-   
+    
 
 
 }
