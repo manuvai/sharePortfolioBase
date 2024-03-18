@@ -18,8 +18,8 @@ public class Portefeuille {
 
     public class LignePortefeuille {
 
-        public final Action action;
-        public int qte;
+        private  Action action;
+        private int qte;
 
         public int getQte() {
             return qte;

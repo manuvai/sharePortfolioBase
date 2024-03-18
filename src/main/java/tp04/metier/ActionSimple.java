@@ -20,7 +20,7 @@ public class ActionSimple extends Action {
     // constructeur
     public ActionSimple(String libelle) {
         // Action simple initialisée comme 1 action
-        super(libelle, 50.0);
+        super(libelle);
         // init spécifique
         this.mapCours = new HashMap();
     }

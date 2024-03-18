@@ -24,7 +24,7 @@ public abstract class Action {
         return libelle;
     }
 
-    public Action(String libelle, double par) {
+    public Action(String libelle) {
         this.libelle = libelle;
     }
 
