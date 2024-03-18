@@ -197,9 +197,9 @@ public class Portefeuille {
     * @param jourFin la date de fin de la période
     * @return l'évolution du portefeuille entre les deux dates, sous forme de float
  */
-    public float evolutionPortefeuille(Jour jourDebut, Jour jourFin){
+    public double evolutionPortefeuille(Jour jourDebut, Jour jourFin){
         
-        return valeur(jourFin) - valeur(jourDebut);
+        return (double)(valeur(jourFin) - valeur(jourDebut));
     }
 }
 
