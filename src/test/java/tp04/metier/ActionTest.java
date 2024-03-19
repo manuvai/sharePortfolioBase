@@ -32,28 +32,30 @@ public class ActionTest {
         final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
 
         // Action
-        Portefeuille portefeuille = new Portefeuille();
-        
         //actionS
-        ActionSimple action1 = new ActionSimple("action1");
-        ActionSimple action2 = new ActionSimple("action2");
-        ActionSimple action3 = new ActionSimple("action3");
+        ActionSimple actionS1 = new ActionSimple("action1");
+        ActionSimple actionS2 = new ActionSimple("action2");
+        ActionSimple actionS3 = new ActionSimple("action3");
         
-        action1.enrgCours(jour,20.0f);
-        action2.enrgCours(jour,12.0f);
-        action3.enrgCours(jour,11.0f);
-
+        actionS1.enrgCours(new Cours(jour, 15.0f));
+        actionS2.enrgCours(new Cours(jour, 12.0f));
+        actionS3.enrgCours(new Cours(jour, 12.0f));
+        
         //actionC
-        ActionComposee action4 = new ActionComposee("action4");
-        action4.enrgComposition(action2, 0.5f);
-        action4.enrgComposition(action3, 0.5f);
+        ActionComposee actionC4 = new ActionComposee("action4");
+        actionC4.enrgComposition(actionS2, 0.5f);
+        actionC4.enrgComposition(actionS3, 0.5f);
 
         //calculer
-        final float expectedValueS = (float)(20);
-        final float actualValueS = ;
+        final float expectedValueS = (float)(15);
+        final float actualValueS =actionS1.valeur(jour) ;
+        
+        final float expectedValueC = (float)(12);
+        final float actualValueC =actionC4.valeur(jour) ;
        
         // Assert
         Assertions.assertEquals(expectedValueS , actualValueS, "testEnregistrerEtRecupererCoursHistoriqueS KO");
+        Assertions.assertEquals(expectedValueC , actualValueC, "testEnregistrerEtRecupererCoursHistoriqueC KO");
 
     }
 }
