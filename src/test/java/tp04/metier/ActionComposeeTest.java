@@ -24,18 +24,49 @@ import org.junit.jupiter.api.Test;
  */
 public class ActionComposeeTest {
     /** Paramètre **/
-        private static final String DEFAULT_LABEL = "France";
-        @Test
-        // Test Permettant de tester le constructeur
-        protected void testConstructorParametersAreCorrectSuccess() throws Exception {
-            //Arrange
-            final ActionComposee actionComposee= new ActionComposee(DEFAULT_LABEL);
+    private static final String DEFAULT_LABEL = "France";
+    private static final Jour DEFAULT_JOUR = new Jour(2020, 10);
+    private static final Cours DEFAULT_COURS1 = new Cours(DEFAULT_JOUR, 25);
+    private static final Cours DEFAULT_COURS2 = new Cours(DEFAULT_JOUR, 55);
+    private static final float DEFAULT_POURCENTAGE = 11;
+  
+    
+    @Test
+    // Test Permettant de tester le constructeur
+    protected void testConstructorParametersAreCorrectSuccess() throws Exception {
+        //Arrange
+        final ActionComposee actionComposee= new ActionComposee(DEFAULT_LABEL);
 
-            //Action
-            final String expectedToString = DEFAULT_LABEL;
-            final String currentToString = actionComposee.toString();
+        //Action
+        final String expectedToString = DEFAULT_LABEL;
+        final String currentToString = actionComposee.toString();
 
-            //Assert
-            Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
-        }
+        //Assert
+        Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
+    }
+    
+    @Test
+    protected void testValueIncorrectShouldFail() throws Exception {
+        //Arrange
+        final ActionSimple DEFAULT_AS1 = new ActionSimple("France 1");
+        final ActionSimple DEFAULT_AS2 = new ActionSimple("M6");
+        
+        DEFAULT_AS1.enrgCours(DEFAULT_COURS1);
+        DEFAULT_AS2.enrgCours(DEFAULT_COURS2);
+        
+        ActionComposee actionComposee = new ActionComposee("FranceTV");
+        
+        actionComposee.enrgComposition(DEFAULT_AS2, 11);
+        actionComposee.enrgComposition(DEFAULT_AS1, 11);
+        
+        CrudAction listeActions = new CrudAction();
+        listeActions.enregistrerAction(DEFAULT_AS2);
+        listeActions.enregistrerAction(DEFAULT_AS1);
+        
+        //Action
+        final String expectedToString = DEFAULT_AS1 + "-" + DEFAULT_POURCENTAGE + DEFAULT_AS2 + "-" + DEFAULT_POURCENTAGE; 
+        final String currentToString = DEFAULT_AS1 + "-" + actionComposee.affichagePourcentageActionSimple(DEFAULT_AS1)+ DEFAULT_AS2 + "-" + actionComposee.affichagePourcentageActionSimple(DEFAULT_AS2); 
+        
+        Assertions.assertEquals(expectedToString, currentToString, "testValueIncorrectShouldFail KO");
+    }
 }
