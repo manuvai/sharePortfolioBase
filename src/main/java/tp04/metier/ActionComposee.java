@@ -97,4 +97,47 @@ public class ActionComposee extends Action {
         }
         return valeur;
     }
+    
+    
+    /**
+     * Affiche les cours de l'action composée pour une période donnée.
+     *
+     * @param dateDebut La date de début de la période.
+     * @param dateFin La date de fin de la période.
+     * @return Une map contenant les cours de l'action composée pour chaque jour de la période,
+     *         ou null si les dates sont invalides.
+     *
+     * @throws IllegalArgumentException si les dates ne sont pas dans la même année
+     *                                  ou si la date de début est supérieure à la date de fin.
+     */
+    public Map<Jour, Float> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
+    int anneeDebut = dateDebut.getAnnee();
+    int anneeFin = dateFin.getAnnee();
+    int jourDebut = dateDebut.getNoJour();
+    int jourFin = dateFin.getNoJour();
+
+    if (anneeDebut == anneeFin) {
+        if (jourDebut <= jourFin) {
+            Map<Jour, Float> mapCours = new HashMap<>();
+            for (int j = jourDebut; j <= jourFin; j++) {
+                Jour currentJour = new Jour(anneeDebut, j);
+                float coursTotal = 0;
+                for (Map.Entry<ActionSimple, Float> entry : mapPanier.entrySet()) {
+                    float pourcentage = entry.getValue();
+                    float cours = entry.getKey().valeur(currentJour);
+                    coursTotal += pourcentage * cours;
+                }
+                mapCours.put(currentJour, coursTotal);
+            }
+            return mapCours;
+        } else {
+            System.out.println("La date début doit être inférieure à la date fin !");
+        }
+    } else {
+        System.out.println("Veuillez entrer la date de la même année");
+    }
+        return null;
+    }
+
+
 }

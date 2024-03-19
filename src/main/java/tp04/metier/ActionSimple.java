@@ -74,6 +74,16 @@ public class ActionSimple extends Action {
     }
     
     
+    
+    /**
+     * Affiche les cours d'une action pour une période donnée.
+     *
+     * @param dateDebut la date de début de la période
+     * @param dateFin la date de fin de la période
+     * @return une map contenant les cours de l'action pour chaque jour de la période,
+     *         ou null si la période est invalide (par exemple, si les dates ne sont pas dans la même année
+     *         ou si la date de début est postérieure à la date de fin)
+     */
     public Map<Jour, Float> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
     int anneeDebut = dateDebut.getAnnee();
     int anneeFin = dateFin.getAnnee();
