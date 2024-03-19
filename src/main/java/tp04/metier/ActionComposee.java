@@ -110,7 +110,7 @@ public class ActionComposee extends Action {
      * @throws IllegalArgumentException si les dates ne sont pas dans la même année
      *                                  ou si la date de début est supérieure à la date de fin.
      */
-    public Map<Jour, Float> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
+    public Map<Jour, Double> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
     int anneeDebut = dateDebut.getAnnee();
     int anneeFin = dateFin.getAnnee();
     int jourDebut = dateDebut.getNoJour();
@@ -118,13 +118,13 @@ public class ActionComposee extends Action {
 
     if (anneeDebut == anneeFin) {
         if (jourDebut <= jourFin) {
-            Map<Jour, Float> mapCours = new HashMap<>();
+            Map<Jour, Double> mapCours = new HashMap<>();
             for (int j = jourDebut; j <= jourFin; j++) {
                 Jour currentJour = new Jour(anneeDebut, j);
-                float coursTotal = 0;
+                double coursTotal = 0;
                 for (Map.Entry<ActionSimple, Float> entry : mapPanier.entrySet()) {
-                    float pourcentage = entry.getValue();
-                    float cours = entry.getKey().valeur(currentJour);
+                    double pourcentage = entry.getValue();
+                    double cours = entry.getKey().valeur(currentJour);
                     coursTotal += pourcentage * cours;
                 }
                 mapCours.put(currentJour, coursTotal);

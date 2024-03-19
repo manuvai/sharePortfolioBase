@@ -135,11 +135,11 @@ public class ActionTest {
         action2.enrgCours(cours6);
 
        //Calculer
-        Map<Jour, Float> expectedValue = new HashMap<>();
-        expectedValue.put(jour1, 150.0f);
-        expectedValue.put(jour2, 165.0f);
-        expectedValue.put(jour3, 180.0f);
-        Map<Jour, Float> actualValue = actionComposee.afficherCoursPeriode(jour1, jour3);
+        Map<Jour, Double> expectedValue = new HashMap<>();
+        expectedValue.put(jour1, 150.0);
+        expectedValue.put(jour2, 165.0);
+        expectedValue.put(jour3, 180.0);
+        Map<Jour, Double> actualValue = actionComposee.afficherCoursPeriode(jour1, jour3);
         
         //Assert
         Assertions.assertEquals(expectedValue, actualValue);
