@@ -53,10 +53,10 @@ public class ActionTest {
 
         //calculer
         final float expectedValueS = (float)(15);
-        final float actualValueS =actionS1.valeur(jour) ;
+        final float actualValueS = actionS1.valeur(jour) ;
         
         final float expectedValueC = (float)(12);
-        final float actualValueC =actionC4.valeur(jour) ;
+        final float actualValueC = actionC4.valeur(jour) ;
        
         // Assert
         Assertions.assertEquals(expectedValueS , actualValueS, "testEnregistrerEtRecupererCoursHistoriqueS KO");
