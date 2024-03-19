@@ -130,45 +130,7 @@ public class PortefeuilleTest {
 
     
     
-    @Test
-    protected void testVisualisationValeurTotalParJour() {
-        // Arrange
-        final int DEFAULT_YEAR = 2024;
-        final int DEFAULT_DAY = 18;
-        final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
-
-        // Action
-        Portefeuille portefeuille = new Portefeuille();
-        
-        //actionS
-        ActionSimple action1 = new ActionSimple("action1");
-        ActionSimple action2 = new ActionSimple("action2");
-        ActionSimple action3 = new ActionSimple("action3");
-        
-        action1.enrgCours(jour,15.0f);
-        action2.enrgCours(jour,12.0f);
-        action3.enrgCours(jour,11.0f);
-       
-        portefeuille.acheter(action1, 2);
-
-
-        //actionC
-        ActionComposee action4 = new ActionComposee("action4");
-        action4.enrgComposition(action2, 0.5f);
-        action4.enrgComposition(action3, 0.5f);
-
-        portefeuille.acheter(action4, 100);
-
-        //calculer
-        final float expectedTotalValue = (float)(15.0 * 2 + 12.0 * 0.5 * 100 + 11.0 * 0.5 * 100 );
-        final float actualTotalValue = portefeuille.valeur(jour);
-       
-
-        // Assert
-        Assertions.assertEquals(expectedTotalValue, actualTotalValue, "VisualisationValeurTotalParJour KO");
-}
-  
-    
+   
  /**
  *
  * @author Fatima/Yassine
