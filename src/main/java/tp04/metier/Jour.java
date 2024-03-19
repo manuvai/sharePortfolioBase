@@ -22,6 +22,10 @@ public class Jour {
     public int getAnnee() {
         return annee;
     }
+    
+    public void setAnnee(int annee){
+        this.annee = annee;
+    }
 
     /**
      * Get the value of noJour
@@ -31,6 +35,7 @@ public class Jour {
     public int getNoJour() {
         return noJour;
     }
+    
 
     public Jour(int annee, int noJour) {
     	if(noJour <= 0) {

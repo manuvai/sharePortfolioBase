@@ -74,4 +74,32 @@ public class ActionSimple extends Action {
         }
     	return 0;
     }
+    
+    
+    public Map<Jour, Float> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
+    int anneeDebut = dateDebut.getAnnee();
+    int anneeFin = dateFin.getAnnee();
+    int jourDebut = dateDebut.getNoJour();
+    int jourFin = dateFin.getNoJour();
+
+    if (anneeDebut == anneeFin) {
+        if (jourDebut < jourFin) {
+            Map<Jour, Float> mapCours = new HashMap<>();
+            for (int j = jourDebut; j <= jourFin; j++) {
+                Jour currentJour = new Jour(anneeDebut, j); 
+                mapCours.put(currentJour, valeur(currentJour));
+            }
+            return mapCours;
+        } else {
+            System.out.println("La date début doit être inférieure à la date fin !");
+        }
+    } else {
+        System.out.println("Veuillez entrer la date de la même année");
+    }
+    return null;
 }
+
+    
+}
+
+    
