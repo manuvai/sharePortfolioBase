@@ -61,7 +61,20 @@ public class ActionComposee extends Action {
     	}
     }
     
-      // Fonction permettant de supprimer une action composée
+    //Fonciton permettant d'afficher le pourcentage d'une action simple
+    public float affichagePourcentageActionSimple(ActionSimple actionSimple) {     
+        //Parcours le Map
+    	for(Map.Entry<ActionSimple, Float> entry : this.mapPanier.entrySet()) {
+            if (entry.getKey().equals(actionSimple)) {
+                return entry.getValue();
+
+            }
+        }
+        return 0;
+    }
+    
+    
+    // Fonction permettant de supprimer une action composée
     public void suppressionCours(ActionSimple as) throws Exception {
         //verification du cours dans la Map
         if (this.mapPanier.containsKey(as)) {
@@ -82,7 +95,6 @@ public class ActionComposee extends Action {
         // Calcule la valeur de l'action simple pour le jour donné et multiplie par le pourcentage
             valeur = valeur + (as.valeur(j) * this.mapPanier.get(as));
         }
-
         return valeur;
     }
 }
