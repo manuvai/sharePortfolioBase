@@ -13,6 +13,7 @@ import java.util.Map;
  * Représente une action composée.
  * Une action composée est une combinaison d'actions simples avec des pourcentages associés à chacune d'elles.
  * Cette classe hérite de la classe abstraite Action.
+ * 
  * @author Moli Nguyen
  */
 public class ActionComposee extends Action {
@@ -20,20 +21,19 @@ public class ActionComposee extends Action {
     // Map pour stocker les actions simples avec leur pourcentage dans le panier de l'action composée
     Map<ActionSimple, Float> mapPanier;
 
-
-     /**
+    /**
      * Constructeur de la classe ActionComposee.
      * Initialise une nouvelle instance d'une action composée avec le libellé spécifié.
      * 
      * @param libelle Le libellé de l'action composée.
      */
-    public ActionComposee(String libelle) throws Exception {
+    public ActionComposee(String libelle) throws IllegalStateException {
         super(libelle);
         // Vérification permettant de vérifier le constructeur
         if ("".equals(libelle)){
-          throw new Exception("ActionComposée ne peux pas avoir un libelle vide");
+          throw new IllegalStateException("ActionComposée ne peux pas avoir un libelle vide");
         }
-        this.mapPanier = new HashMap();
+        this.mapPanier = new HashMap<>();
     }
     
     /**
@@ -44,9 +44,9 @@ public class ActionComposee extends Action {
      */
 
      // Fonction permettant d'enregistrer une action simple 
-    public void enrgComposition(ActionSimple as, float pourcentage) throws Exception {
+    public void enrgComposition(ActionSimple as, float pourcentage) throws IllegalStateException {
         if (pourcentage <= 0) {
-            throw new Exception("Le pourcentage ne peux pas être inférieur ou égale a 0");
+            throw new IllegalStateException("Le pourcentage ne peux pas être inférieur ou égale a 0");
             }
         else {
             this.mapPanier.put(as, pourcentage);
