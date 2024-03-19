@@ -141,8 +141,9 @@ public class ActionTest {
         expectedValue.put(jour3, 180.0);
         Map<Jour, Double> actualValue = actionComposee.afficherCoursPeriode(jour1, jour3);
         
-        //Assert
-        Assertions.assertEquals(expectedValue, actualValue);
+        // Assert
+        Assertions.assertEquals(expectedValue, actualValue, "testAfficherCoursPeriodeActionComposee KO");
+
 }
 
 }
