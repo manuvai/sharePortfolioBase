@@ -190,4 +190,19 @@ public class Portefeuille {
             mapLignes.put(a, new LignePortefeuille(a, nouvelleQte));
         }
     }
+    
+ /**
+    * Calcule l'évolution du portefeuille entre deux dates données.
+    *
+    * @param jourDebut la date de début de la période
+    * @param jourFin la date de fin de la période
+    * @return l'évolution du portefeuille entre les deux dates, sous forme de float
+ */
+    public double evolutionPortefeuille(Jour jourDebut, Jour jourFin){
+        
+        return (double)valeur(jourFin) - (double)valeur(jourDebut);
+    }
 }
+
+
+    

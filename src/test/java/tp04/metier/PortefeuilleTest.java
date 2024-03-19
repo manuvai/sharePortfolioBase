@@ -127,46 +127,6 @@ public class PortefeuilleTest {
         Assertions.assertNull(portefeuille.mapLignes.get(action), "Vente d'actions composées KO");
 
     }
-
-    
-    
-    @Test
-    protected void testVisualisationValeurTotalParJour() {
-        // Arrange
-        final int DEFAULT_YEAR = 2024;
-        final int DEFAULT_DAY = 18;
-        final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
-
-        // Action
-        Portefeuille portefeuille = new Portefeuille();
-        
-        //actionS
-        ActionSimple action1 = new ActionSimple("action1");
-        ActionSimple action2 = new ActionSimple("action2");
-        ActionSimple action3 = new ActionSimple("action3");
-        
-        action1.enrgCours(jour,15.0f);
-        action2.enrgCours(jour,12.0f);
-        action3.enrgCours(jour,11.0f);
-       
-        portefeuille.acheter(action1, 2);
-
-
-        //actionC
-        ActionComposee action4 = new ActionComposee("action4");
-        action4.enrgComposition(action2, 0.5f);
-        action4.enrgComposition(action3, 0.5f);
-
-        portefeuille.acheter(action4, 100);
-
-        //calculer
-        final float expectedTotalValue = (float)(15.0 * 2 + 12.0 * 0.5 * 100 + 11.0 * 0.5 * 100 );
-        final float actualTotalValue = portefeuille.valeur(jour);
-       
-
-        // Assert
-        Assertions.assertEquals(expectedTotalValue, actualTotalValue, "VisualisationValeurTotalParJour KO");
-}
   
     
  /**
@@ -245,49 +205,133 @@ public class PortefeuilleTest {
     }
     @Test
     public void testModifierActionSimpleQuantiteMiseAJourOK() {
-    // GIVEN
-    ActionSimple actionExistante = new ActionSimple("Total");
-    Portefeuille portefeuille = new Portefeuille();
-    portefeuille.acheter(actionExistante, 10);
+        // GIVEN
+        ActionSimple actionExistante = new ActionSimple("Total");
+        Portefeuille portefeuille = new Portefeuille();
+        portefeuille.acheter(actionExistante, 10);
 
-    // WHEN
-    portefeuille.modifierAction(actionExistante, 20);
+        // WHEN
+        portefeuille.modifierAction(actionExistante, 20);
 
-    // THEN
-    Assertions.assertEquals(20, portefeuille.mapLignes.get(actionExistante).getQte(), "La quantité de l'action existante doit être mise à jour à 20");
+        // THEN
+        Assertions.assertEquals(20, portefeuille.mapLignes.get(actionExistante).getQte(), "La quantité de l'action existante doit être mise à jour à 20");
 
-    // GIVEN
-    ActionSimple nouvelleActionSimple = new ActionSimple("NouvelleActionSimple");
+        // GIVEN
+        ActionSimple nouvelleActionSimple = new ActionSimple("NouvelleActionSimple");
 
-    // WHEN
-    portefeuille.modifierAction(nouvelleActionSimple, 15);
+        // WHEN
+        portefeuille.modifierAction(nouvelleActionSimple, 15);
 
-    // THEN
-    Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionSimple), "La nouvelle action simple doit être ajoutée au portefeuille");
-    Assertions.assertEquals(15, portefeuille.mapLignes.get(nouvelleActionSimple).getQte(), "La quantité de la nouvelle action simple doit être de 15");
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionSimple), "La nouvelle action simple doit être ajoutée au portefeuille");
+        Assertions.assertEquals(15, portefeuille.mapLignes.get(nouvelleActionSimple).getQte(), "La quantité de la nouvelle action simple doit être de 15");
     }
     
     @Test
     public void testModifierActionComposeeQuantiteMiseAJourOK() {
-    // GIVEN
-    ActionComposee actionComposeeExistante = new ActionComposee("Energies");
-    Portefeuille portefeuille = new Portefeuille();
-    portefeuille.acheter(actionComposeeExistante, 5);
+        // GIVEN
+        ActionComposee actionComposeeExistante = new ActionComposee("Energies");
+        Portefeuille portefeuille = new Portefeuille();
+        portefeuille.acheter(actionComposeeExistante, 5);
 
-    // WHEN
-    portefeuille.modifierAction(actionComposeeExistante, 10);
+        // WHEN
+        portefeuille.modifierAction(actionComposeeExistante, 10);
 
-    // THEN
-    Assertions.assertEquals(10, portefeuille.mapLignes.get(actionComposeeExistante).getQte(), "La quantité de l'action composée existante doit être mise à jour à 10");
+        // THEN
+        Assertions.assertEquals(10, portefeuille.mapLignes.get(actionComposeeExistante).getQte(), "La quantité de l'action composée existante doit être mise à jour à 10");
 
-    // GIVEN
-    ActionComposee nouvelleActionComposee = new ActionComposee("NouveauSecteur");
+        // GIVEN
+        ActionComposee nouvelleActionComposee = new ActionComposee("NouveauSecteur");
 
-    // WHEN
-    portefeuille.modifierAction(nouvelleActionComposee, 20);
+        // WHEN
+        portefeuille.modifierAction(nouvelleActionComposee, 20);
 
-    // THEN
-    Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionComposee), "La nouvelle action composée doit être ajoutée au portefeuille");
-    Assertions.assertEquals(20, portefeuille.mapLignes.get(nouvelleActionComposee).getQte(), "La quantité de la nouvelle action composée doit être de 20");
+        // THEN
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionComposee), "La nouvelle action composée doit être ajoutée au portefeuille");
+        Assertions.assertEquals(20, portefeuille.mapLignes.get(nouvelleActionComposee).getQte(), "La quantité de la nouvelle action composée doit être de 20");
+    }
+    
+    @Test
+    public void testEvolutionValeurTotalPortefeuille(){
+        // Arrange
+        final int DEFAULT_YEAR1 = 2024;
+        final int DEFAULT_DAY1 = 18;
+        final Jour jour1 = new Jour(DEFAULT_YEAR1, DEFAULT_DAY1);
+        
+        final int DEFAULT_YEAR2 = 2024;
+        final int DEFAULT_DAY2 = 24;
+        final Jour jour2 = new Jour(DEFAULT_YEAR2, DEFAULT_DAY2);
+
+        // Action
+        Portefeuille portefeuille = new Portefeuille();
+        
+        //actionSimple
+        ActionSimple action1 = new ActionSimple("action1");
+        ActionSimple action2 = new ActionSimple("action2");
+        ActionSimple action3 = new ActionSimple("action3");
+        action1.enrgCours(new Cours(jour1, 15.0f));
+        action2.enrgCours(new Cours(jour1, 12.0f));
+        action3.enrgCours(new Cours(jour1, 11.0f));
+        
+        action1.enrgCours(new Cours(jour2, 30.0f));
+        action2.enrgCours(new Cours(jour2, 20.0f));
+        action3.enrgCours(new Cours(jour2, 50.0f));
+       
+        portefeuille.acheter(action1, 2);
+        //actionComposée
+        ActionComposee action4 = new ActionComposee("action4");
+        action4.enrgComposition(action2, 0.5f);
+        action4.enrgComposition(action3, 0.5f);
+
+        portefeuille.acheter(action4, 100);
+
+        //calculer
+        final double expectedTotalValue = (30.0 * 2 + 20.0 * 0.5 * 100 + 50.0 * 0.5 * 100 )-(15.0 * 2 + 12.0 * 0.5 * 100 + 11.0 * 0.5 * 100 );
+        final double actualTotalValue = portefeuille.evolutionPortefeuille(jour1, jour2);
+       
+
+        // Assert
+        Assertions.assertEquals(expectedTotalValue, actualTotalValue, "VisualisationEvolutionValeurTotalPortefeuille KO");
+    }
+    
+    
+    @Test
+    protected void testVisualisationValeurTotalParJour() {
+        // Arrange
+        final int DEFAULT_YEAR = 2024;
+        final int DEFAULT_DAY = 18;
+        final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
+
+        // Action
+        Portefeuille portefeuille = new Portefeuille();
+        
+        //actionS
+        ActionSimple action1 = new ActionSimple("action1");
+        ActionSimple action2 = new ActionSimple("action2");
+        ActionSimple action3 = new ActionSimple("action3");
+        
+        action1.enrgCours(new Cours(jour, 15.0f));
+        action2.enrgCours(new Cours(jour, 12.0f));
+        action3.enrgCours(new Cours(jour, 11.0f));
+       
+        portefeuille.acheter(action1, 2);
+
+
+        //actionC
+        ActionComposee action4 = new ActionComposee("action4");
+        action4.enrgComposition(action2, 0.5f);
+        action4.enrgComposition(action3, 0.5f);
+
+        portefeuille.acheter(action4, 100);
+
+        //calculer
+    
+        final float expectedTotalValue = (float)(15.0 * 2 + 12.0 * 0.5 * 100 + 11.0 * 0.5 * 100 );
+        final float actualTotalValue = portefeuille.valeur(jour);
+       
+
+        // Assert
+        Assertions.assertEquals(expectedTotalValue, actualTotalValue, "VisualisationValeurTotalParJour KO");
+        
     }
 }
