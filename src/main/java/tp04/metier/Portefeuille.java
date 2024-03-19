@@ -202,6 +202,35 @@ public class Portefeuille {
         
         return (double)valeur(jourFin) - (double)valeur(jourDebut);
     }
+    
+ 
+  
+        /**
+       * Affiche la composition des actions composées présentes dans le portefeuille.
+       * Pour chaque action composée dans le portefeuille, affiche son libellé et sa composition.
+       */
+      public void visualiserCompositionActionsComposees() {
+          System.out.println("Composition des actions composées dans le portefeuille:");
+          for (LignePortefeuille ligne : mapLignes.values()) {
+              Action action = ligne.getAction();
+              if (action instanceof ActionComposee actionComposee) {
+                  System.out.println("Action composée: " + actionComposee.getLibelle());
+                  actionComposee.visualiserComposition();
+              }
+          }
+      }
+
+    public void visualiserComposition() {
+        for (Action as : this.mapLignes.keySet()) {
+            System.out.println("- Action simple: " + as.getLibelle() + ", Pourcentage: " + mapLignes.get(as));
+        }
+    }
+
+
+    
+    
+    
+    
 }
 
 

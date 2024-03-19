@@ -15,7 +15,11 @@
  */
 package tp04.metier;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -336,4 +340,55 @@ public class PortefeuilleTest {
         Assertions.assertEquals(expectedTotalValue, actualTotalValue, "VisualisationValeurTotalParJour KO");
         
     }
+    
+        /**
+        *
+        * @author Fatima/Yassine
+        */
+    
+    @Test
+    public void testVisualiserCompositionActionsComposees() {
+        // Création d'une action composée
+        ActionComposee actionComposee = new ActionComposee("Action composée 1");
+        // Ajout d'actions simples à l'action composée
+        ActionSimple actionSimple1 = new ActionSimple("Action simple 1");
+        ActionSimple actionSimple2 = new ActionSimple("Action simple 2");
+        actionComposee.enrgComposition(actionSimple1, 50.0f);
+        actionComposee.enrgComposition(actionSimple2, 50.0f);
+
+        // Création d'un portefeuille
+        Portefeuille portefeuille = new Portefeuille();
+        portefeuille.acheter(actionComposee, 1);
+
+        // Redirection de la sortie console vers un flux pour permettre la comparaison
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        // Exécution de la méthode à tester
+        portefeuille.visualiserCompositionActionsComposees();
+
+        // Récupération de la sortie imprimée
+        String output = outputStream.toString();
+
+        // Rétablissement de la sortie console normale
+        System.setOut(originalOut);
+
+        // Assertion
+        String expectedOutput = """
+                                Composition des actions composées dans le portefeuille:
+                                Action composée: Action composée 1
+                                Composition de l'action composée 'Action composée 1':
+                                - Action simple: Action simple 2, Pourcentage: 50.0
+                                - Action simple: Action simple 1, Pourcentage: 50.0
+                                """;
+        assertEquals(expectedOutput, output);
+    }
+
+
+
+    
+    
+    
+    
 }

@@ -97,4 +97,18 @@ public class ActionComposee extends Action {
         }
         return valeur;
     }
+
+    /**
+    * Affiche la composition de l'action composée.
+    * Pour chaque action simple dans le panier de l'action composée, affiche son libellé et son pourcentage.
+    */
+   public void visualiserComposition() {
+       System.out.println("Composition de l'action composée '" + getLibelle() + "':");
+       for (Map.Entry<ActionSimple, Float> entry : mapPanier.entrySet()) {
+           ActionSimple actionSimple = entry.getKey();
+           float pourcentage = entry.getValue();
+           System.out.println("- Action simple: " + actionSimple.getLibelle() + ", Pourcentage: " + pourcentage);
+       }
+   }
+
 }
