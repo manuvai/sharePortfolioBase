@@ -37,9 +37,14 @@ public class ActionTest {
         ActionSimple actionS2 = new ActionSimple("action2");
         ActionSimple actionS3 = new ActionSimple("action3");
         
-        actionS1.enrgCours(new Cours(jour, 15.0f));
-        actionS2.enrgCours(new Cours(jour, 12.0f));
-        actionS3.enrgCours(new Cours(jour, 12.0f));
+        Cours cours1 = new Cours(jour, 15.0f);
+        Cours cours2 = new Cours(jour, 12.0f);
+        Cours cours3 = new Cours(jour, 12.0f);
+        
+        actionS1.enrgCours(cours1);
+        actionS2.enrgCours(cours2);
+        actionS3.enrgCours(cours3);
+
         
         //actionC
         ActionComposee actionC4 = new ActionComposee("action4");
