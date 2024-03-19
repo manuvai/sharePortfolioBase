@@ -32,7 +32,6 @@ public class ActionTest {
         final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
 
         // Action
-        //actionS
         ActionSimple actionS1 = new ActionSimple("action1");
         ActionSimple actionS2 = new ActionSimple("action2");
         ActionSimple actionS3 = new ActionSimple("action3");
@@ -45,8 +44,6 @@ public class ActionTest {
         actionS2.enrgCours(cours2);
         actionS3.enrgCours(cours3);
 
-        
-        //actionC
         ActionComposee actionC4 = new ActionComposee("action4");
         actionC4.enrgComposition(actionS2, 0.5f);
         actionC4.enrgComposition(actionS3, 0.5f);
