@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 public class PortefeuilleTest {
 
     @Test
-    public void testVendreActionSimpleQteNegativeKO() {
+    public void testVendreActionSimpleQteNegativeKO() throws Exception {
         // GIVEN
         String expectedMessage = "La quantité doit être supérieure à 0 pour vendre cette action";
         ActionSimple action = new ActionSimple("Total");
@@ -45,7 +45,7 @@ public class PortefeuilleTest {
     }
 
     @Test
-    public void testVendreActionComposeeQteNulleKO() {
+    public void testVendreActionComposeeQteNulleKO() throws Exception {
         // GIVEN
         String expectedMessage = "La quantité doit être supérieure à 0 pour vendre cette action";
         ActionComposee actionComposee = new ActionComposee("Energies");
@@ -65,7 +65,7 @@ public class PortefeuilleTest {
     }
 
     @Test
-    public void testVendreActionComposeeQteSuperieureKO() {
+    public void testVendreActionComposeeQteSuperieureKO() throws Exception {
         // GIVEN
         String expectedMessage = "La quantité demandée est supérieure à ce que vous possédez";
         ActionComposee actionComposee = new ActionComposee("Energies");
@@ -85,7 +85,7 @@ public class PortefeuilleTest {
     }
 
     @Test
-    public void testVendreActionSimpleQtePositiveOK() {
+    public void testVendreActionSimpleQtePositiveOK() throws Exception {
         // GIVEN
         ActionSimple action = new ActionSimple("Total");
         Portefeuille portefeuille = new Portefeuille();
@@ -100,7 +100,7 @@ public class PortefeuilleTest {
     }
 
     @Test
-    public void testVendreActionComposeeQtePositiveOK() {
+    public void testVendreActionComposeeQtePositiveOK() throws Exception {
         // GIVEN
         ActionComposee action = new ActionComposee("Energies");
         Portefeuille portefeuille = new Portefeuille();
@@ -115,7 +115,7 @@ public class PortefeuilleTest {
     }
 
     @Test
-    public void testVendreActionComposeeQteTotaleOK() {
+    public void testVendreActionComposeeQteTotaleOK() throws Exception {
         // GIVEN
         ActionComposee action = new ActionComposee("Energies");
         Portefeuille portefeuille = new Portefeuille();
@@ -127,14 +127,16 @@ public class PortefeuilleTest {
         Assertions.assertNull(portefeuille.mapLignes.get(action), "Vente d'actions composées KO");
 
     }
-  
+
     
+    
+   
  /**
  *
  * @author Fatima/Yassine
  */
     @Test
-    public void testAcheterActionSimpleQuantiteTotaleOK() {
+    public void testAcheterActionSimpleQuantiteTotaleOK() throws Exception {
         // GIVEN
         ActionSimple action = new ActionSimple("Total");
         Portefeuille portefeuille = new Portefeuille();
@@ -149,7 +151,7 @@ public class PortefeuilleTest {
     
     
      @Test
-    public void testAcheterActionComposeeeQuantiteTotaleOK() {
+    public void testAcheterActionComposeeeQuantiteTotaleOK() throws Exception {
         // GIVEN
         ActionComposee action = new ActionComposee("Airbus");
         Portefeuille portefeuille = new Portefeuille();
@@ -163,7 +165,7 @@ public class PortefeuilleTest {
     }
     
      @Test
-    public void testAcheterActionComposeeeQuantiteNOK() {
+    public void testAcheterActionComposeeeQuantiteNOK() throws Exception {
         
     String expectedMessage = "La quantité doit être supérieure à 0 pour acheter cette action";
         // GIVEN
@@ -185,7 +187,7 @@ public class PortefeuilleTest {
 
     
      @Test
-    public void testAcheterActionSimpleNOK() {
+    public void testAcheterActionSimpleNOK() throws Exception {
         
        String expectedMessage = "La quantité doit être supérieure à 0 pour acheter cette action";
          // GIVEN
@@ -204,7 +206,7 @@ public class PortefeuilleTest {
        
     }
     @Test
-    public void testModifierActionSimpleQuantiteMiseAJourOK() {
+    public void testModifierActionSimpleQuantiteMiseAJourOK() throws Exception {
         // GIVEN
         ActionSimple actionExistante = new ActionSimple("Total");
         Portefeuille portefeuille = new Portefeuille();
@@ -228,7 +230,7 @@ public class PortefeuilleTest {
     }
     
     @Test
-    public void testModifierActionComposeeQuantiteMiseAJourOK() {
+    public void testModifierActionComposeeQuantiteMiseAJourOK() throws Exception {
         // GIVEN
         ActionComposee actionComposeeExistante = new ActionComposee("Energies");
         Portefeuille portefeuille = new Portefeuille();
