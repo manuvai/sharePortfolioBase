@@ -8,6 +8,7 @@ package tp04.metier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /*
  * Représente une action simple.
@@ -90,20 +91,20 @@ public class ActionSimple extends Action {
         int jourDebut = dateDebut.getNoJour();
         int jourFin = dateFin.getNoJour();
         
-        if (anneeDebut == anneeFin) {
-            if (jourDebut < jourFin) {
-                Map<Jour, Float> mapCours = new TreeMap<>(); // Changed HashMap to TreeMap
-                for (int j = jourDebut; j <= jourFin; j++) {
-                    var currentJour = new Jour(anneeDebut, j);  // Changed explicit type to var
-                    mapCours.put(currentJour, valeur(currentJour));
-                }
-                return mapCours;
-            } else {
-                throw new IllegalArgumentException("La date début doit être inférieure à la date fin !");
-            }
-        } else {
+        if (anneeDebut != anneeFin) {
             throw new IllegalArgumentException("Veuillez entrer la date de la même année");
         }
+
+        if (jourDebut >= jourFin) {
+            throw new IllegalArgumentException("La date début doit être inférieure à la date fin !");
+        }
+
+        Map<Jour, Float> mapCours = new HashMap<>(); // Changed HashMap to TreeMap
+        for (int j = jourDebut; j <= jourFin; j++) {
+            var currentJour = new Jour(anneeDebut, j);  // Changed explicit type to var
+            mapCours.put(currentJour, valeur(currentJour));
+        }
+        return mapCours;
     }
 
 }
