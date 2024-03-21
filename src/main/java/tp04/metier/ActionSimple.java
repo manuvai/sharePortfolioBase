@@ -92,9 +92,9 @@ public class ActionSimple extends Action {
         
         if (anneeDebut == anneeFin) {
             if (jourDebut < jourFin) {
-                var mapCours = new HashMap<Jour, Float>();
+                Map<Jour, Float> mapCours = new TreeMap<>(); // Changed HashMap to TreeMap
                 for (int j = jourDebut; j <= jourFin; j++) {
-                    Jour currentJour = new Jour(anneeDebut, j); 
+                    var currentJour = new Jour(anneeDebut, j);  // Changed explicit type to var
                     mapCours.put(currentJour, valeur(currentJour));
                 }
                 return mapCours;
