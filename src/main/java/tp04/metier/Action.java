@@ -26,6 +26,16 @@ public abstract class Action {
         return libelle;
     }
 
+    /**
+     *
+     *
+     * @param libelle Le libellé de l'action.
+     * @return 
+     */
+    public String setLibelle(String libelle) {
+        return this.libelle = libelle;
+    }
+
      /**
      * Constructeur de la classe Action.
      * 
@@ -66,6 +76,11 @@ public abstract class Action {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public String toString() {
         return this.getLibelle();
     }
