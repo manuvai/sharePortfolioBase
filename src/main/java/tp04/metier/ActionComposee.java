@@ -111,32 +111,31 @@ public class ActionComposee extends Action {
      *                                  ou si la date de début est supérieure à la date de fin.
      */
     public Map<Jour, Double> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
-    int anneeDebut = dateDebut.getAnnee();
-    int anneeFin = dateFin.getAnnee();
-    int jourDebut = dateDebut.getNoJour();
-    int jourFin = dateFin.getNoJour();
+        int anneeDebut = dateDebut.getAnnee();
+        int anneeFin = dateFin.getAnnee();
+        int jourDebut = dateDebut.getNoJour();
+        int jourFin = dateFin.getNoJour();
 
-    if (anneeDebut == anneeFin) {
-        if (jourDebut <= jourFin) {
-            Map<Jour, Double> mapCours = new HashMap<>();
-            for (int j = jourDebut; j <= jourFin; j++) {
-                Jour currentJour = new Jour(anneeDebut, j);
-                double coursTotal = 0;
-                for (Map.Entry<ActionSimple, Float> entry : mapPanier.entrySet()) {
-                    double pourcentage = entry.getValue();
-                    double cours = entry.getKey().valeur(currentJour);
-                    coursTotal += pourcentage * cours;
-                }
-                mapCours.put(currentJour, coursTotal);
-            }
-            return mapCours;
-        } else {
-            System.out.println("La date début doit être inférieure à la date fin !");
+        if (anneeDebut != anneeFin) {
+            throw new IllegalArgumentException("Veuillez entrer la date de la même année");
         }
-    } else {
-        System.out.println("Veuillez entrer la date de la même année");
-    }
-        return null;
+        if (jourDebut > jourFin) {
+            throw new IllegalArgumentException("La date début doit être inférieure à la date fin !");
+        }
+
+        Map<Jour, Double> mapCours = new HashMap<>();
+        for (int j = jourDebut; j <= jourFin; j++) {
+            Jour currentJour = new Jour(anneeDebut, j);
+            double coursTotal = 0;
+            for (Map.Entry<ActionSimple, Float> entry : mapPanier.entrySet()) {
+                double pourcentage = entry.getValue();
+                double cours = entry.getKey().valeur(currentJour);
+                coursTotal += pourcentage * cours;
+            }
+            mapCours.put(currentJour, coursTotal);
+        }
+
+        return mapCours;
     }
 
 
