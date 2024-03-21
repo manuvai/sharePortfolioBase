@@ -9,7 +9,7 @@ package tp04.metier;
  *
  * @author somebody
  */
-public class Jour {
+public class Jour implements Comparable<Jour>{
 
     private int annee;
     private int noJour;
@@ -22,6 +22,10 @@ public class Jour {
     public int getAnnee() {
         return annee;
     }
+    
+    public void setAnnee(int annee){
+        this.annee = annee;
+    }
 
     /**
      * Get the value of noJour
@@ -31,6 +35,7 @@ public class Jour {
     public int getNoJour() {
         return noJour;
     }
+    
 
     public Jour(int annee, int noJour) {
     	if(noJour <= 0) {
@@ -69,5 +74,18 @@ public class Jour {
     @Override
     public String toString() {
         return "Jour{" + "annee=" + annee + ", noJour=" + noJour + '}';
+    }
+
+    @Override
+    public int compareTo(Jour other) {
+        if (annee < other.annee) {
+            return -1;
+        }
+        if (annee > other.annee) {
+            return 1;
+        }
+
+        return Integer.compare(noJour, other.noJour);
+
     }
 }

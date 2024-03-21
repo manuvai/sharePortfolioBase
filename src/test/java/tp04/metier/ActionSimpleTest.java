@@ -24,19 +24,49 @@ import org.junit.jupiter.api.Test;
  */
 public class ActionSimpleTest {
     
-        /** Paramètre **/
-        private static final String DEFAULT_LABEL = "France";
-        @Test
-        // Test Permettant de tester le constructeur
-        protected void testConstructorParametersAreCorrectSuccess() throws Exception {
-            //Arrange
-            final ActionSimple actionSimple = new ActionSimple(DEFAULT_LABEL);
+    /** Paramètre **/
+    private static final String DEFAULT_LABEL = "France";
+    @Test
+    // Test Permettant de tester le constructeur
+    protected void testConstructorParametersAreCorrectSuccess() throws Exception {
+        //Arrange
+        final ActionSimple actionSimple = new ActionSimple(DEFAULT_LABEL);
 
-            //Action
-            final String expectedToString = DEFAULT_LABEL;
-            final String currentToString = actionSimple.toString();
+        //Action
+        final String expectedToString = DEFAULT_LABEL;
+        final String currentToString = actionSimple.toString();
 
-            //Assert
-            Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
-        }
+        //Assert
+        Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
+    }
+
+    @Test
+    protected void testAfficherCoursPeriodeAnneeDifferente() {
+        String messageErreur = "Veuillez entrer la date de la même année";
+        Jour jourDebut = new Jour(2024, 1);
+        Jour jourFin = new Jour(2023, 1);
+
+        ActionSimple action = new ActionSimple("ActionTest");
+        IllegalArgumentException exception = Assertions.assertThrowsExactly(IllegalArgumentException.class,
+                () -> action.afficherCoursPeriode(jourDebut, jourFin),
+                "Annee differente");
+
+        Assertions.assertEquals(messageErreur, exception.getMessage(), "Message d'erreur devrait être le même");
+
+    }
+
+    @Test
+    protected void testAfficherCoursPeriodeJourFutur() {
+        String messageErreur = "La date début doit être inférieure à la date fin !";
+        Jour jourDebut = new Jour(2024, 6);
+        Jour jourFin = new Jour(2024, 1);
+
+        ActionSimple action = new ActionSimple("ActionTest");
+        IllegalArgumentException exception = Assertions.assertThrowsExactly(IllegalArgumentException.class,
+                () -> action.afficherCoursPeriode(jourDebut, jourFin),
+                "Annee differente");
+
+        Assertions.assertEquals(messageErreur, exception.getMessage(), "Message d'erreur devrait être le même");
+
+    }
 }
