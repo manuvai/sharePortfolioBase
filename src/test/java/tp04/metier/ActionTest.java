@@ -65,7 +65,7 @@ public class ActionTest {
     
     
     @Test
-    public void testHistoriqueUneActionSimpleSurUnePeriode() {
+    pu void testHistoriqueUneActionSimpleSurUnePeriode() {
         // Arrange
         final int DEFAULT_YEAR = 2024;
         final int DEFAULT_DAY1 = 20;
@@ -106,7 +106,7 @@ public class ActionTest {
     }
     
     @Test
-    public void testAfficherCoursPeriodeActionComposee() {
+    void testAfficherCoursPeriodeActionComposee() {
         //Arrange
         ActionSimple action1 = new ActionSimple("Action 1");
         ActionSimple action2 = new ActionSimple("Action 2");
