@@ -92,7 +92,7 @@ public class ActionSimple extends Action {
         
         if (anneeDebut == anneeFin) {
             if (jourDebut < jourFin) {
-                Map<Jour, Float> mapCours = new HashMap<>();
+                var mapCours = new HashMap<Jour, Float>();
                 for (int j = jourDebut; j <= jourFin; j++) {
                     Jour currentJour = new Jour(anneeDebut, j); 
                     mapCours.put(currentJour, valeur(currentJour));
