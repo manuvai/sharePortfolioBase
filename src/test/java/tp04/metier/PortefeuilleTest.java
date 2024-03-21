@@ -132,13 +132,10 @@ public class PortefeuilleTest {
 
     }
 
-    
-    
-   
- /**
- *
- * @author Fatima/Yassine
- */
+    /**
+     *
+     * @author Fatima/Yassine
+     */
     @Test
     public void testAcheterActionSimpleQuantiteTotaleOK() throws Exception {
         // GIVEN
@@ -220,7 +217,8 @@ public class PortefeuilleTest {
         portefeuille.modifierAction(actionExistante, 20);
 
         // THEN
-        Assertions.assertEquals(20, portefeuille.mapLignes.get(actionExistante).getQte(), "La quantité de l'action existante doit être mise à jour à 20");
+        Assertions.assertEquals(20, portefeuille.mapLignes.get(actionExistante).getQte(),
+                "La quantité de l'action existante doit être mise à jour à 20");
 
         // GIVEN
         ActionSimple nouvelleActionSimple = new ActionSimple("NouvelleActionSimple");
@@ -229,8 +227,10 @@ public class PortefeuilleTest {
         portefeuille.modifierAction(nouvelleActionSimple, 15);
 
         // THEN
-        Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionSimple), "La nouvelle action simple doit être ajoutée au portefeuille");
-        Assertions.assertEquals(15, portefeuille.mapLignes.get(nouvelleActionSimple).getQte(), "La quantité de la nouvelle action simple doit être de 15");
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionSimple),
+                "La nouvelle action simple doit être ajoutée au portefeuille");
+        Assertions.assertEquals(15, portefeuille.mapLignes.get(nouvelleActionSimple).getQte(),
+                "La quantité de la nouvelle action simple doit être de 15");
     }
     
     @Test
@@ -244,7 +244,8 @@ public class PortefeuilleTest {
         portefeuille.modifierAction(actionComposeeExistante, 10);
 
         // THEN
-        Assertions.assertEquals(10, portefeuille.mapLignes.get(actionComposeeExistante).getQte(), "La quantité de l'action composée existante doit être mise à jour à 10");
+        Assertions.assertEquals(10, portefeuille.mapLignes.get(actionComposeeExistante).getQte(),
+                "La quantité de l'action composée existante doit être mise à jour à 10");
 
         // GIVEN
         ActionComposee nouvelleActionComposee = new ActionComposee("NouveauSecteur");
@@ -253,8 +254,10 @@ public class PortefeuilleTest {
         portefeuille.modifierAction(nouvelleActionComposee, 20);
 
         // THEN
-        Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionComposee), "La nouvelle action composée doit être ajoutée au portefeuille");
-        Assertions.assertEquals(20, portefeuille.mapLignes.get(nouvelleActionComposee).getQte(), "La quantité de la nouvelle action composée doit être de 20");
+        Assertions.assertTrue(portefeuille.mapLignes.containsKey(nouvelleActionComposee),
+                "La nouvelle action composée doit être ajoutée au portefeuille");
+        Assertions.assertEquals(20, portefeuille.mapLignes.get(nouvelleActionComposee).getQte(),
+                "La quantité de la nouvelle action composée doit être de 20");
     }
     
     @Test
@@ -315,11 +318,15 @@ public class PortefeuilleTest {
         ActionSimple action1 = new ActionSimple("action1");
         ActionSimple action2 = new ActionSimple("action2");
         ActionSimple action3 = new ActionSimple("action3");
-        
-        action1.enrgCours(new Cours(jour, 15.0f));
-        action2.enrgCours(new Cours(jour, 12.0f));
-        action3.enrgCours(new Cours(jour, 11.0f));
-       
+
+        Cours cours1 = new Cours(jour, 15.0f);
+        Cours cours2 = new Cours(jour, 12.0f);
+        Cours cours3 = new Cours(jour, 45.0f);
+
+        action1.enrgCours(cours1);
+        action2.enrgCours(cours2);
+        action3.enrgCours(cours3);
+
         portefeuille.acheter(action1, 2);
 
 
@@ -330,9 +337,8 @@ public class PortefeuilleTest {
 
         portefeuille.acheter(action4, 100);
 
-        //calculer
-    
-        final float expectedTotalValue = (float)(15.0 * 2 + 12.0 * 0.5 * 100 + 11.0 * 0.5 * 100 );
+        // calculer
+        final float expectedTotalValue = (float) (15.0 * 2 + 12.0 * 0.5 * 100 + 45.0 * 0.5 * 100);
         final float actualTotalValue = portefeuille.valeur(jour);
        
 
@@ -391,4 +397,71 @@ public class PortefeuilleTest {
     
     
     
+
+    @Test
+    public void testNombreActionsAchetablesActionSimple() throws Exception {
+        // GIVEN
+        Jour jour = new Jour(2024, 100); // Exemple de jour
+        float montant = 1000.0f; // Montant disponible pour l'achat
+        ActionSimple actionSimple = new ActionSimple("ActionSimple");
+
+         Cours cours2 = new Cours(jour,12.0f);
+
+        actionSimple.enrgCours(cours2);// Enregistrement d'un cours de 50.0 pour l'action simple à ce jour
+
+        Portefeuille portefeuille = new Portefeuille();
+
+        // WHEN
+        int nombreAchetables = portefeuille.nombreActionsAchetables(actionSimple, montant, jour);
+
+        // THEN
+        Assertions.assertEquals(83, nombreAchetables, "Le nombre d'actions achetables pour l'action simple est incorrect.");
+    }
+
+    @Test
+    public void testNombreActionsAchetablesActionComposee() throws Exception {
+        // GIVEN
+        Jour jour = new Jour(2024, 100); // Exemple de jour
+        float montant = 1000.0f; // Montant disponible pour l'achat
+        ActionComposee actionComposee = new ActionComposee("ActionComposee");
+        ActionSimple partSimple1 = new ActionSimple("PartSimple1");
+        ActionSimple partSimple2 = new ActionSimple("PartSimple2");
+
+        Cours cours1 = new Cours(jour,15.0f);
+        Cours cours2 = new Cours(jour,12.0f);
+
+        partSimple1.enrgCours(cours2);
+        partSimple2.enrgCours(cours1);
+
+        actionComposee.enrgComposition(partSimple1, 0.5f); // 50% de partSimple1
+        actionComposee.enrgComposition(partSimple2, 0.5f); // 50% de partSimple2
+
+        Portefeuille portefeuille = new Portefeuille();
+
+        // WHEN
+        int nombreAchetables = portefeuille.nombreActionsAchetables(actionComposee, montant, jour);
+
+        // THEN
+        Assertions.assertEquals(74, nombreAchetables, "Le nombre d'actions achetables pour l'action composée est incorrect.");
+    }
+    @Test
+    public void testNombreActionsAchetablesActionSimpleValeurNegativeKo() throws Exception {
+        // GIVEN
+        String expectedMessage = "La valeur de l'action doit être supérieure à 0 pour effectuer un achat.";
+        ActionSimple actionSimple = new ActionSimple("ActionSimple");
+        Jour jour = new Jour(2024, 14);
+
+        Portefeuille portefeuille = new Portefeuille();
+
+        // THEN
+        IllegalArgumentException assertThrowsExactly = Assertions.assertThrowsExactly(
+                IllegalArgumentException.class
+                , () -> portefeuille.nombreActionsAchetables(actionSimple, 10, jour)
+                , "Vous ne devriez pas pouvoir faire d'achat pour un jour n'ayant pas de cours enregistré");
+
+        final String currentMessage = assertThrowsExactly.getMessage();
+
+        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+
+    }
 }

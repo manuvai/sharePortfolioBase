@@ -69,4 +69,36 @@ public class ActionComposeeTest {
         
         Assertions.assertEquals(expectedToString, currentToString, "testValueIncorrectShouldFail KO");
     }
+
+
+
+    @Test
+    protected void testAfficherCoursPeriodeAnneeDifferente() {
+        String messageErreur = "Veuillez entrer la date de la même année";
+        Jour jourDebut = new Jour(2024, 1);
+        Jour jourFin = new Jour(2023, 1);
+
+        ActionComposee action = new ActionComposee("ActionTest");
+        IllegalArgumentException exception = Assertions.assertThrowsExactly(IllegalArgumentException.class,
+                () -> action.afficherCoursPeriode(jourDebut, jourFin),
+                "Annee differente");
+
+        Assertions.assertEquals(messageErreur, exception.getMessage(), "Message d'erreur devrait être le même");
+
+    }
+
+    @Test
+    protected void testAfficherCoursPeriodeJourFutur() {
+        String messageErreur = "La date début doit être inférieure à la date fin !";
+        Jour jourDebut = new Jour(2024, 6);
+        Jour jourFin = new Jour(2024, 1);
+
+        ActionComposee action = new ActionComposee("ActionTest");
+        IllegalArgumentException exception = Assertions.assertThrowsExactly(IllegalArgumentException.class,
+                () -> action.afficherCoursPeriode(jourDebut, jourFin),
+                "Annee differente");
+
+        Assertions.assertEquals(messageErreur, exception.getMessage(), "Message d'erreur devrait être le même");
+
+    }
 }
