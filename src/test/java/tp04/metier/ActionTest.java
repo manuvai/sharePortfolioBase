@@ -65,7 +65,7 @@ public class ActionTest {
     
     
     @Test
-    pu void testHistoriqueUneActionSimpleSurUnePeriode() {
+    void testHistoriqueUneActionSimpleSurUnePeriode() {
         // Arrange
         final int DEFAULT_YEAR = 2024;
         final int DEFAULT_DAY1 = 20;
