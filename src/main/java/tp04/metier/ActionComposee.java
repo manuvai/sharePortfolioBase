@@ -113,12 +113,12 @@ public class ActionComposee extends Action {
     public Map<Jour, Double> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
         int anneeDebut = dateDebut.getAnnee();
         int anneeFin = dateFin.getAnnee();
-        int jourDebut = dateDebut.getNoJour();
-        int jourFin = dateFin.getNoJour();
 
         if (anneeDebut != anneeFin) {
             throw new IllegalArgumentException("Veuillez entrer la date de la même année");
         }
+        int jourDebut = dateDebut.getNoJour();
+        int jourFin = dateFin.getNoJour();
         if (jourDebut > jourFin) {
             throw new IllegalArgumentException("La date début doit être inférieure à la date fin !");
         }
