@@ -85,29 +85,27 @@ public class ActionSimple extends Action {
      *         ou si la date de début est postérieure à la date de fin)
      */
     public Map<Jour, Float> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
-    int anneeDebut = dateDebut.getAnnee();
-    int anneeFin = dateFin.getAnnee();
-    int jourDebut = dateDebut.getNoJour();
-    int jourFin = dateFin.getNoJour();
-
-    if (anneeDebut == anneeFin) {
-        if (jourDebut < jourFin) {
-            Map<Jour, Float> mapCours = new HashMap<>();
-            for (int j = jourDebut; j <= jourFin; j++) {
-                Jour currentJour = new Jour(anneeDebut, j); 
-                mapCours.put(currentJour, valeur(currentJour));
+        int anneeDebut = dateDebut.getAnnee();
+        int anneeFin = dateFin.getAnnee();
+        int jourDebut = dateDebut.getNoJour();
+        int jourFin = dateFin.getNoJour();
+        
+        if (anneeDebut == anneeFin) {
+            if (jourDebut < jourFin) {
+                Map<Jour, Float> mapCours = new HashMap<>();
+                for (int j = jourDebut; j <= jourFin; j++) {
+                    Jour currentJour = new Jour(anneeDebut, j); 
+                    mapCours.put(currentJour, valeur(currentJour));
+                }
+                return mapCours;
+            } else {
+                throw new IllegalArgumentException("La date début doit être inférieure à la date fin !");
             }
-            return mapCours;
         } else {
-            System.out.println("La date début doit être inférieure à la date fin !");
+            throw new IllegalArgumentException("Veuillez entrer la date de la même année");
         }
-    } else {
-        System.out.println("Veuillez entrer la date de la même année");
     }
-    return null;
-}
 
-    
 }
 
     
