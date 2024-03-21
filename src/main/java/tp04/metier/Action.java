@@ -26,6 +26,10 @@ public abstract class Action {
         return libelle;
     }
 
+    public String setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
      /**
      * Constructeur de la classe Action.
      * 
@@ -66,6 +70,11 @@ public abstract class Action {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public String toString() {
         return this.getLibelle();
     }

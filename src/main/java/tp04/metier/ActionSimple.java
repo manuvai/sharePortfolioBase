@@ -41,6 +41,10 @@ public class ActionSimple extends Action {
         // init spécifique
         this.listeCours = new ArrayList<>();
     }
+    
+    public ArrayList<Cours> getCours(){
+        return this.listeCours;
+    }
 
     /**
      * Enregistre un cours pour un jour spécifique.Si aucun cours n'est enregistré pour le jour donné, un nouveau cours est créé avec la valeur spécifiée.

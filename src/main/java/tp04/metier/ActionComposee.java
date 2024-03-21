@@ -5,6 +5,7 @@
  */
 package tp04.metier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +35,10 @@ public class ActionComposee extends Action {
           throw new IllegalStateException("ActionComposée ne peux pas avoir un libelle vide");
         }
         this.mapPanier = new HashMap<>();
+    }
+    
+    public void setListeActions(ArrayList<Action> actionsS) {
+        
     }
     
     /**
@@ -67,7 +72,6 @@ public class ActionComposee extends Action {
     	for(Map.Entry<ActionSimple, Float> entry : this.mapPanier.entrySet()) {
             if (entry.getKey().equals(actionSimple)) {
                 return entry.getValue();
-
             }
         }
         return 0;

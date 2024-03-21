@@ -5,120 +5,120 @@
  */
 package tp04.metier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Représente un portefeuille d'actions.
- * Un portefeuille contient un ensemble d'actions avec les quantités correspondantes.
- * Il permet d'acheter et de vendre des actions, ainsi que de calculer la valeur totale du portefeuille.
- * 
+ * Un portefeuille contenant un ensemble d'actions.
+ * Permet d'acheter/vendre des actions.
+ * ainsi que de calculer la valeur totale du portefeuille.
  * @author somebody
  */
 public class Portefeuille {
 
-    // Map pour stocker les actions avec les quantités correspondantes
-    Map<Action, LignePortefeuille> mapLignes;
-
-    
      /**
-     * Représente une ligne du portefeuille contenant une action et sa quantité.
+     * Map pour stocker les actions avec les quantités correspondantes.
+     */
+    private Map<Action, LignePortefeuille> mapLignes;
+
+     /**
+     * Une ligne contenant une action et sa quantité.
      */
     public class LignePortefeuille {
 
-        private  Action action;
+        /**
+         */
+        private final Action action;
+         /**
+         */
         private int qte;
 
         /**
          * Obtient la quantité d'action dans cette ligne du portefeuille.
-         * 
          * @return La quantité d'action.
          */
-        public int getQte() {
+        public final int getQte() {
             return qte;
         }
 
         /**
          * Définit la quantité d'action dans cette ligne du portefeuille.
-         * 
          * @param qte La nouvelle quantité d'action.
          */
-        public void setQte(int qte) {
+        public void setQte(final int qte) {
             this.qte = qte;
         }
 
          /**
          * Obtient l'action associée à cette ligne du portefeuille.
-         * 
          * @return L'action associée.
          */
-        
-        public Action getAction() {
+        public final Action getAction() {
             return this.action;
         }
 
          /**
          * Constructeur de la classe LignePortefeuille.
-         * Initialise une nouvelle instance de ligne de portefeuille avec l'action et la quantité spécifiées.
-         * 
+         * Initialise une nouvelle instance de ligne.
+         * de portefeuille avec l'action et la quantité spécifiées.
          * @param action L'action associée à cette ligne.
          * @param qte La quantité d'action dans cette ligne.
          */
-        
+
         public LignePortefeuille(Action action, int qte) {
             this.action = action;
             this.qte = qte;
         }
-        
+
         /**
-         * Retourne une représentation de la quantité d'action sous forme de chaîne de caractères.
-         * 
+         * Retourne une représentation de la quantité.
+         * d'action sous forme de chaîne de caractères.
          * @return La quantité d'action sous forme de chaîne de caractères.
          */
 
-        public String toString() {
+        @Override
+        public final String toString() {
             return Integer.toString(qte);
         }
     }
 
-        /**
-       * Constructeur de la classe Portefeuille.
-       * Initialise un nouveau portefeuille avec une map vide pour stocker les lignes du portefeuille.
-       */
-        public Portefeuille() {
-            this.mapLignes = new HashMap();
-        }
+    /**
+    * Constructeur de la classe Portefeuille.
+    * Initialise un nouveau portefeuille avec une map vide.
+    * pour stocker les lignes du portefeuille.
+    */
+    public Portefeuille() {
+        this.mapLignes = new HashMap();
+    }
 
-    
-    /** 
+    /**
      * Achat une quantité spécifiée d'une certaine action.
-     * Si l'action n'est pas présente dans le portefeuille, elle est ajoutée avec la quantité spécifiée.
-     * Si l'action est déjà présente, la quantité existante est mise à jour en ajoutant la quantité spécifiée. 
+     * Si l'action ajoutée avec la quantité spécifiée.
+     * Mise à jour en ajoutant la quantité spécifiée.
      *
      * @param a l'action à acheter.
      * @param q la quantité à acheter
      */
-    
-    public void acheter(Action a, int q) {
-    if (q <= 0) {
-        throw new IllegalArgumentException("La quantité doit être supérieure à 0 pour acheter cette action");
-    }
+    public final void acheter(Action a, int q) {
+        if (q <= 0) {
+            throw new IllegalArgumentException("La quantité < 0");
+        }
 
-    // Si l'action n'est pas présente dans le portefeuille, l'ajouter avec la quantité spécifiée
-    if (!mapLignes.containsKey(a)) {
-        mapLignes.put(a, new LignePortefeuille(a, q));
-    } else {
-    // Si l'action est déjà présente, mettre à jour la quantité existante en ajoutant la quantité spécifiée
-        mapLignes.get(a).setQte(mapLignes.get(a).getQte() + q);
+        // Ajout la quantité spécifiée
+        if (!mapLignes.containsKey(a)) {
+            mapLignes.put(a, new LignePortefeuille(a, q));
+        } else {
+        // MAJ la quantité existante en ajoutant la quantité spécifiée
+            mapLignes.get(a).setQte(mapLignes.get(a).getQte() + q);
+        }
     }
-}
-    
-    
     /**
      * Vend une quantité spécifiée d'une certaine action.
      * Si la quantité disponible est supérieure à la quantité spécifiée,
      * la quantité disponible est diminuée de la quantité spécifiée.
-     * Si la quantité disponible est égale à la quantité spécifiée, l'action est
+     * Si la qté dispo = qté spécifiée, l'action est
      * supprimée de la map.
      *
      * @param a L'action à vendre.
@@ -127,14 +127,14 @@ public class Portefeuille {
     public final void vendre(final Action a, final int q) {
 
         if (q <= 0) {
-            throw new IllegalArgumentException("La quantité doit être supérieure à 0 pour vendre cette action");
+            throw new IllegalArgumentException("La quantité < 0");
         }
 
         if (mapLignes.containsKey(a)) {
             int qte = mapLignes.get(a).getQte();
 
             if (q > qte) {
-                throw new IllegalArgumentException("La quantité demandée est supérieure à ce que vous possédez");
+                throw new IllegalArgumentException("Quantité supérieur");
             }
 
             if (qte > q) {
@@ -144,18 +144,16 @@ public class Portefeuille {
             }
         }
     }
-    
-    public String toString() {
+
+    /**
+    * @return LLLLLLL
+    */
+    @Override
+    public final String toString() {
         return this.mapLignes.toString();
     }
 
-    
     /**
-    * Calcule la valeur totale du portefeuille pour une journée spécifiée.
-    * La valeur totale est obtenue en additionnant la valeur de chaque ligne d'action dans le portefeuille
-    * pour la journée donnée, où la valeur de chaque ligne est le produit de la quantité d'actions détenue
-    * et la valeur de l'action pour cette journée.
-    * 
     * @param j La journée pour calculer la valeur totale du portefeuille.
     * @return La valeur totale du portefeuille pour la journée spécifiée.
     */
@@ -168,18 +166,22 @@ public class Portefeuille {
     }
  /**
     * Modifie la quantité d'une action spécifiée dans le portefeuille.
-    * Si l'action existe déjà, sa quantité est mise à jour avec la nouvelle quantité spécifiée.
-    * Si l'action n'existe pas dans le portefeuille, elle est ajoutée avec la nouvelle quantité.
-    * Une exception est lancée si la nouvelle quantité spécifiée est inférieure ou égale à 0, 
+    * Si l'action existe déjà, sa quantité est mise à jour.
+    * avec la nouvelle quantité spécifiée.
+    * Si l'action n'existe pas.
+    * elle est ajoutée avec la nouvelle quantité.
+    * Une exception est lancée si la nouvelle quantité.
+    * spécifiée est inférieure ou égale à 0.
     * car cela ne représente pas une opération valide sur le portefeuille.
     *
     * @param a L'action à modifier.
     * @param nouvelleQte La nouvelle quantité pour l'action.
-    * @throws IllegalArgumentException Si la nouvelle quantité est inférieure ou égale à 0.
+    * @throws IllegalArgumentException Si la nouvelle quantité.
+    * est inférieure ou égale à 0.
  */
-    public void modifierAction(Action a, int nouvelleQte){
+    public final void modifierAction(final Action a, int nouvelleQte){
          if (nouvelleQte <= 0) {
-            throw new IllegalArgumentException("La quantité doit être supérieure à 0");
+            throw new IllegalArgumentException("La quantité doit être > 0");
         }
          LignePortefeuille ligne = mapLignes.get(a);
         if (ligne != null) {
@@ -192,15 +194,44 @@ public class Portefeuille {
     }
 
     /**
-     * Calcule l'évolution du portefeuille entre deux dates données.
-     *
-     * @param jourDebut la date de début de la période
-     * @param jourFin la date de fin de la période
-     * @return l'évolution du portefeuille entre les deux dates, sous forme de float
-     */
-    public double evolutionPortefeuille(Jour jourDebut, Jour jourFin){
+       * Calcule l'évolution du portefeuille entre deux dates données.
+       *
+       * @param jDebut la date de début de la période
+       * @param jFin la date de fin de la période
+       * @return l'évolution du portefeuille entre 2 dates, sous forme de float
+    */
+    public final double evolutionPortefeuille(final Jour jDebut, final Jour jFin){
+        return (double) valeur(jFin) - (double) valeur(jDebut);
+    }
+    /**
+       * Calcule l'évolution du portefeuille entre deux dates données.
+       * @param cours la date de début de la période
+    */
+    public final void analyseAction(Cours cours){
+     ArrayList<Action> listeActions = new ArrayList<>();
+        ArrayList<Action> listeActions_actionsComposees = new ArrayList<>();
+        ActionComposee aComp = new ActionComposee("ActionCompProvisoire");
         
-        return (double)valeur(jourFin) - (double)valeur(jourDebut);
+        //Parcours le Map
+    	for(Map.Entry<Action, LignePortefeuille> entry : this.mapLignes.entrySet()) {
+            if (entry.getKey() instanceof ActionSimple){
+                ActionSimple as = (ActionSimple)entry.getKey();
+                if(as.getCours().contains(cours)){
+                    listeActions.add(as);
+                }
+            } else if (entry.getKey() instanceof ActionComposee){
+                ActionComposee ac = (ActionComposee)entry.getKey();
+                for(Map.Entry<ActionSimple, Float> entryAC : ac.mapPanier.entrySet()) {
+                    if(entryAC.getKey().getCours().contains(cours)) {
+                        aComp.setLibelle(ac.getLibelle());
+                        listeActions_actionsComposees.add(entryAC.getKey());
+                        ac.mapPanier.put(entryAC.getKey(), entryAC.getValue());
+                    }
+                }
+                // On ajoute aComp à la liste listeActions
+                listeActions.add(ac);
+            }
+        }
     }
 
     /**
