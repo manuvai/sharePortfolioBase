@@ -21,7 +21,7 @@ import java.util.Objects;
  *
  * Classe abstraite représentant une action.
  * Une action peut être une action simple ou une action composée.
- * 
+ *
  * @author fatima
  */
 public abstract class Action {
@@ -70,7 +70,7 @@ public abstract class Action {
     /**
      * Override de la méthode hashCode() pour calculer .
      * le code de hachage de l'objet Action.
-     * 
+     *
      * @return Le code de hachage calculé.
      */
     @Override
