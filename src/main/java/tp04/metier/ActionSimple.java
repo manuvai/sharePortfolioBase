@@ -100,7 +100,7 @@ public class ActionSimple extends Action {
     */
 
     @Override
-    public final float valeur(Jour j) {
+    public final float valeur(final Jour j) {
         for (Cours c : this.listeCours) {
             if (c.getJour().equals(j)) {
                 return c.getValeur();
