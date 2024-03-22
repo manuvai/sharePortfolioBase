@@ -32,7 +32,12 @@ public class Jour implements Comparable<Jour>{
     public int getAnnee() {
         return annee;
     }
-    
+
+    /**
+     * Set the value of annee
+     *
+     * @param annee la nouvelle valeur de l'annee
+     */
     public void setAnnee(int annee){
         this.annee = annee;
     }
@@ -45,8 +50,13 @@ public class Jour implements Comparable<Jour>{
     public int getNoJour() {
         return noJour;
     }
-    
 
+    /**
+     * Constructor of the Jour object
+     *
+     * @param annee Le numéro de l'année
+     * @param noJour le numéro du jour 1-365
+     */
     public Jour(int annee, int noJour) {
     	if(noJour <= 0) {
             throw new IllegalArgumentException("0 must not be used as a valid Day");

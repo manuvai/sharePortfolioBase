@@ -25,12 +25,10 @@ import java.util.Map;
  * Une action simple est une action qui ne contient qu'un seul cours.
  * Elle hérite des propriétés et méthodes de la classe Action.
  *
- * <p>
  * Exemple d'utilisation :
  * <pre>
  *     ActionSimple action = new ActionSimple("ActionXYZ");
  * </pre>
- * </p>
  *
  * @author fatima/julie/marc
  */

@@ -23,92 +23,129 @@ import java.util.Map;
  * Représente une action composée.
  * Une action composée est une combinaison d'actions simples avec des pourcentages associés à chacune d'elles.
  * Cette classe hérite de la classe abstraite Action.
- * 
+ *
  * @author Moli Nguyen
  */
 public class ActionComposee extends Action {
 
-    // Map pour stocker les actions simples avec leur pourcentage dans le panier de l'action composée
-    Map<ActionSimple, Float> mapPanier;
+    /**
+     * Map pour stocker les actions simples avec leur pourcentage dans le panier de l'action composée.
+     */
+    private Map<ActionSimple, Float> mapPanier;
 
     /**
      * Constructeur de la classe ActionComposee.
      * Initialise une nouvelle instance d'une action composée avec le libellé spécifié.
-     * 
+     *
      * @param libelle Le libellé de l'action composée.
      */
-    public ActionComposee(String libelle) throws IllegalStateException {
+    public ActionComposee(final String libelle) throws IllegalStateException {
         super(libelle);
         // Vérification permettant de vérifier le constructeur
-        if ("".equals(libelle)){
-          throw new IllegalStateException("ActionComposée ne peux pas avoir un libelle vide");
+        if ("".equals(libelle)) {
+            throw new IllegalStateException(
+            "ActionComposée ne peux pas avoir un libelle vide"
+            );
         }
         this.mapPanier = new HashMap<>();
     }
-    
+
     /**
      * Enregistre une action simple avec son pourcentage dans le panier de l'action composée.
-     * 
+     *
      * @param as L'action simple à ajouter au panier.
      * @param pourcentage Le pourcentage associé à l'action simple dans le panier.
+     * @throws IllegalStateException Une erreur levée lorsque le pourcentage n'est pas positif
      */
-
-     // Fonction permettant d'enregistrer une action simple 
-    public void enrgComposition(ActionSimple as, float pourcentage) throws IllegalStateException {
+    public void enrgComposition(final ActionSimple as, final float pourcentage)
+        throws IllegalStateException {
         if (pourcentage <= 0) {
-            throw new IllegalStateException("Le pourcentage ne peux pas être inférieur ou égale a 0");
-            }
-        else {
+            throw new IllegalStateException(
+            "Le pourcentage ne peux pas être inférieur ou égale a 0"
+            );
+        } else {
             this.mapPanier.put(as, pourcentage);
         }
     }
-    
-    // Fonction permettant d'afficher la liste des cours d'une action composée
-    public void affichageCours () {     
-        //Parcours le Map
-    	for(ActionSimple as : this.mapPanier.keySet()) {
-    		System.out.println(as.getLibelle() + "-pourcentage : " + mapPanier.get(as));
-    	}
-    }
-    
-    //Fonciton permettant d'afficher le pourcentage d'une action simple
-    public float affichagePourcentageActionSimple(ActionSimple actionSimple) {     
-        //Parcours le Map
-    	for(Map.Entry<ActionSimple, Float> entry : this.mapPanier.entrySet()) {
-            if (entry.getKey().equals(actionSimple)) {
-                return entry.getValue();
 
+    /**
+     * Fonction permettant d'afficher la liste des cours d'une action composée.
+     */
+    public void affichageCours() {
+        //Parcours le Map
+        for (ActionSimple as : this.mapPanier.keySet()) {
+            System.out.println(
+            as.getLibelle() + "-pourcentage : " + mapPanier.get(as)
+            );
+        }
+    }
+
+    /**
+     * Fonction permettant d'afficher le pourcentage d'une action simple.
+     *
+     * @param actionSimple l'action simple à avoir le pourcentage
+     * @return Le pourcentage
+     */
+    public float affichagePourcentageActionSimple(
+        final ActionSimple actionSimple
+    ) {
+        //Parcours le Map
+        for (Map.Entry<ActionSimple, Float> entry : this.mapPanier.entrySet()) {
+            if (entry.getKey().equals(actionSimple)) {
+            return entry.getValue();
             }
         }
         return 0;
     }
-    
-    
-    // Fonction permettant de supprimer une action composée
-    public void suppressionCours(ActionSimple as) throws Exception {
+
+    /**
+     * Fonction permettant de supprimer une action composée.
+     *
+     * @param as l'action simple à supprimer
+     * @throws Exception Lorsque l'action n'est pas comprise dans la liste des actions composantes
+     */
+    public void suppressionCours(final ActionSimple as) throws Exception {
         //verification du cours dans la Map
         if (this.mapPanier.containsKey(as)) {
-           this.mapPanier.remove(as);
-        }
-        else {
+            this.mapPanier.remove(as);
+        } else {
             throw new Exception("Ce cours n'existe pas dans la liste pour cette action");
         }
     }
 
     @Override
-    public float valeur(Jour j) {
+    public float valeur(final Jour j) {
         float valeur;
 
         valeur = 0;
         // Parcours toutes les actions simples dans le panier
         for (ActionSimple as : this.mapPanier.keySet()) {
-        // Calcule la valeur de l'action simple pour le jour donné et multiplie par le pourcentage
+            // Calcule la valeur de l'action simple pour le jour donné et multiplie par le pourcentage
             valeur = valeur + (as.valeur(j) * this.mapPanier.get(as));
         }
         return valeur;
     }
-    
-    
+
+    /**
+     * Affiche la composition de l'action composée.
+     * Pour chaque action simple dans le panier de l'action composée, affiche son libellé et son pourcentage.
+     */
+    public void visualiserComposition() {
+        System.out.println(
+            "Composition de l'action composée '" + getLibelle() + "':"
+        );
+        for (Map.Entry<ActionSimple, Float> entry : mapPanier.entrySet()) {
+            ActionSimple actionSimple = entry.getKey();
+            float pourcentage = entry.getValue();
+            System.out.println(
+                "- Action simple: " +
+                actionSimple.getLibelle() +
+                ", Pourcentage: " +
+                pourcentage
+            );
+        }
+    }
+
     /**
      * Affiche les cours de l'action composée pour une période donnée.
      *
@@ -120,7 +157,10 @@ public class ActionComposee extends Action {
      * @throws IllegalArgumentException si les dates ne sont pas dans la même année
      *                                  ou si la date de début est supérieure à la date de fin.
      */
-    public Map<Jour, Double> afficherCoursPeriode(Jour dateDebut, Jour dateFin) {
+    public Map<Jour, Double> afficherCoursPeriode(
+        final Jour dateDebut,
+        final Jour dateFin
+    ) {
         int anneeDebut = dateDebut.getAnnee();
         int anneeFin = dateFin.getAnnee();
 
@@ -147,6 +187,4 @@ public class ActionComposee extends Action {
 
         return mapCours;
     }
-
-
 }

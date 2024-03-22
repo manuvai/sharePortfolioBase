@@ -17,48 +17,62 @@ package tp04.metier;
 
 import java.util.ArrayList;
 
-/*
+/**
  * Démarche de développement agile
  *
  * @author Moli, Nguyen
- *
  * 18/03/2024
  *
  * Copyright
  */
-
 public class CrudAction {
 
 	// Paramètres 
 	private ArrayList<Action> ListeActions = new ArrayList<>();
 
-	public CrudAction() {
-		super();
-	}
-
+	/**
+	 * Retourne la liste des actions contenues
+	 *
+	 * @return La liste des actions
+	 */
 	public ArrayList<Action> getListeActions() {
 		return ListeActions;
 	}
 
+	/**
+	 * mets à jour la liste des actions
+	 *
+	 * @param listeActions la liste des actions
+	 */
 	public void setListeActions(ArrayList<Action> listeActions) {
 		ListeActions = listeActions;
 	}
-	
-	// Fonction permettant d'enregistrer une action dans la liste d'action simple
+
+	/**
+	 * Fonction permettant d'enregistrer une action dans la liste d'action simple
+	 *
+	 * @param action L'action à ajouter
+	 */
 	public void enregistrerAction ( Action action ) {
 		// Ajout a la liste
 		this.ListeActions.add(action);
 	}
-	
-        // Fonction permettant d'afficher une liste d'actions
+
+	/**
+	 * Fonction permettant d'afficher une liste d'actions
+	 */
 	public void affichageListeAction () {
 		System.out.println("Affichage Liste d'actions");
 		for (Action a : this.ListeActions) {
 			System.out.println(a.getLibelle());
 		}
 	}
-        
-        // Fonction permettant d'enlever une action de la liste d'actions
+
+	/**
+	 * Fonction permettant d'enlever une action de la liste d'actions
+	 *
+	 * @param action l'action à enlever
+	 */
 	public void enleverAction ( Action action ) {
 		// Ajout a la liste
 		this.ListeActions.remove(action);
