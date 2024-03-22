@@ -21,7 +21,8 @@ import java.util.Map;
 /**
  *
  * Représente une action composée.
- * Une action composée est une combinaison d'actions simples avec des pourcentages associés à chacune d'elles.
+ * Une action composée est une combinaison
+ * d'actions simples avec des pourcentages associés à chacune d'elles.
  * Cette classe hérite de la classe abstraite Action.
  *
  * @author Moli Nguyen
@@ -29,7 +30,8 @@ import java.util.Map;
 public class ActionComposee extends Action {
 
     /**
-     * Map pour stocker les actions simples avec leur pourcentage dans le panier de l'action composée.
+     * Map pour stocker les actions simples.
+     * avec leur pourcentage dans le panier de l'action composée.
      */
     private Map<ActionSimple, Float> mapPanier;
 
@@ -157,7 +159,7 @@ public class ActionComposee extends Action {
      * @throws IllegalArgumentException si les dates ne sont pas dans la même année
      *                                  ou si la date de début est supérieure à la date de fin.
      */
-    public Map<Jour, Double> afficherCoursPeriode(
+    public final  Map<Jour, Double> afficherCoursPeriode(
         final Jour dateDebut,
         final Jour dateFin
     ) {
@@ -165,12 +167,14 @@ public class ActionComposee extends Action {
         int anneeFin = dateFin.getAnnee();
 
         if (anneeDebut != anneeFin) {
-            throw new IllegalArgumentException("Veuillez entrer la date de la même année");
+            throw new IllegalArgumentException("Veuillez "
+                    + "entrer la date de la même année");
         }
         int jourDebut = dateDebut.getNoJour();
         int jourFin = dateFin.getNoJour();
         if (jourDebut > jourFin) {
-            throw new IllegalArgumentException("La date début doit être inférieure à la date fin !");
+            throw new IllegalArgumentException("La date "
+                    + "début doit être inférieure à la date fin !");
         }
 
         Map<Jour, Double> mapCours = new HashMap<>();

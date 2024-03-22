@@ -16,9 +16,10 @@
 package tp04.metier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Démarche de développement agile
+ * Démarche de développement agile.
  *
  * @author Moli, Nguyen
  * 18/03/2024
@@ -27,54 +28,61 @@ import java.util.ArrayList;
  */
 public class CrudAction {
 
-	// Paramètres 
-	private ArrayList<Action> ListeActions = new ArrayList<>();
+/**
+ * Liste des actions.
+ * Cette liste contient les actions
+ * associées à l'objet en cours.
+ */
+	private List<Action> listeActions = new ArrayList<>();
 
 	/**
-	 * Retourne la liste des actions contenues
+	 * Retourne la liste des actions contenues.
 	 *
 	 * @return La liste des actions
 	 */
-	public ArrayList<Action> getListeActions() {
-		return ListeActions;
+	public final List<Action> getListeActions() {
+		return listeActions;
 	}
 
 	/**
-	 * mets à jour la liste des actions
+	 * mets à jour la liste des actions.
 	 *
-	 * @param listeActions la liste des actions
+	 * @param inListeActions la liste des actions
 	 */
-	public void setListeActions(ArrayList<Action> listeActions) {
-		ListeActions = listeActions;
+	public final void setListeActions(final List<Action>
+                inListeActions) {
+		listeActions = inListeActions;
 	}
 
 	/**
-	 * Fonction permettant d'enregistrer une action dans la liste d'action simple
+	 * Fonction permettant d'enregistrer.
+         * une action dans la liste d'action simple
 	 *
 	 * @param action L'action à ajouter
 	 */
-	public void enregistrerAction ( Action action ) {
+	public final void enregistrerAction(final Action action) {
 		// Ajout a la liste
-		this.ListeActions.add(action);
+		listeActions.add(action);
 	}
 
 	/**
-	 * Fonction permettant d'afficher une liste d'actions
+	 * Fonction permettant d'afficher une liste d'actions.
 	 */
-	public void affichageListeAction () {
+	public final void affichageListeAction() {
 		System.out.println("Affichage Liste d'actions");
-		for (Action a : this.ListeActions) {
+		for (Action a : listeActions) {
 			System.out.println(a.getLibelle());
 		}
 	}
 
 	/**
-	 * Fonction permettant d'enlever une action de la liste d'actions
+	 * Fonction permettant d'enlever.
+         * une action de la liste d'actions
 	 *
 	 * @param action l'action à enlever
 	 */
-	public void enleverAction ( Action action ) {
+	public final void enleverAction(final Action action) {
 		// Ajout a la liste
-		this.ListeActions.remove(action);
+		listeActions.remove(action);
 	}
 }
