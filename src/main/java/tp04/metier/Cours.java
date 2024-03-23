@@ -59,10 +59,13 @@ public final class Cours {
      *
      * @param aJour   the day of the Cours
      * @param aValeur ths value of the Cours
+     * @throws IllegalArgumentException si le nombres est negative.
      */
-    public Cours(final Jour aJour, final float aValeur) throws IllegalArgumentException {
+    public Cours(final Jour aJour, final float aValeur)
+            throws IllegalArgumentException {
         if (aValeur < 0) {
-            throw new IllegalArgumentException("negatif number must not be used as a valid Value");
+            throw new IllegalArgumentException("negatif number must "
+                    + "not be used as a valid Value");
         }
         this.jour = aJour;
         this.valeur = aValeur;
