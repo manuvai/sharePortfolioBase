@@ -381,13 +381,13 @@ public class PortefeuilleTest {
         System.setOut(originalOut);
 
         // Assertion
-        String expectedOutput = """
-                                Composition des actions composées dans le portefeuille:
-                                Action composée: Action composée 1
-                                Composition de l'action composée 'Action composée 1':
-                                - Action simple: Action simple 2, Pourcentage: 50.0
-                                - Action simple: Action simple 1, Pourcentage: 50.0
-                                """;
+        String lineSeparator = System.getProperty("line.separator");
+        String expectedOutput = "Composition des actions composées dans le portefeuille:" + lineSeparator
+                                + "Action composée: Action composée 1" + lineSeparator
+                                + "Composition de l'action composée 'Action composée 1':" + lineSeparator
+                                + "- Action simple: Action simple 2, Pourcentage: 50.0" + lineSeparator
+                                + "- Action simple: Action simple 1, Pourcentage: 50.0" + lineSeparator;
+
         assertEquals(expectedOutput, output);
     }
 
