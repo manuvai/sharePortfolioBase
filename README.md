@@ -21,7 +21,7 @@
 ### Groupes de binômes/trinômes
 | Composition |
 |------------------------------------|
-| Yifan SHI <br>Yiyang TIAN<br>Manuvai REHUA |
+| Yifan SHI <br>Yiyang TIAN<br>Manuvai REHUA (CdP)|
 | Julie NGUYEN<br>Marc MOLI GONZALEZ    |
 | Fatima MOUSLIM <br> Yassine HRIMACH     |
 
