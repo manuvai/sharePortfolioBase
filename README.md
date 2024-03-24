@@ -28,8 +28,8 @@
 ## Liste des US
 Lien : https://github.com/manuvai/sharePortfolioBase/issues
 
-## Revue des code
-Lien : https://github.com/manuvai/sharePortfolioBase/pulls
+## Compte-rendu des revues de code
+Lien : https://github.com/manuvai/sharePortfolioBase/wiki/Compte%E2%80%90rendu-des-revues-de-code
 
 ## Lien github
 Lien : https://github.com/manuvai/sharePortfolioBase
@@ -38,3 +38,6 @@ Lien : https://github.com/manuvai/sharePortfolioBase
 Lien : https://sonarcloud.io/project/overview?id=manuvai_sharePortfolioBase
 
 ## Autres
+1. Page wiki : https://github.com/manuvai/sharePortfolioBase/wiki
+2. Canaux de discussion : https://github.com/manuvai/sharePortfolioBase/wiki
+3. Workflow utilisé : GitHub Flow (https://docs.github.com/en/get-started/using-github/github-flow)
