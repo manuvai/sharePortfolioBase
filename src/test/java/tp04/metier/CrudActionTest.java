@@ -26,7 +26,7 @@ public class CrudActionTest {
     @Test
     protected void testGetListeActionsListeVideOK() {
         CrudAction crudAction = new CrudAction();
-        List<Action> actionList = crudAction.getListeActions();
+        List<AbstractAction> actionList = crudAction.getListeActions();
 
         Assertions.assertNotNull(actionList, "Le retour de la méthode ne devrait pas être nul");
         Assertions.assertTrue(actionList.isEmpty(), "La liste d'actions devrait être vide");
@@ -34,10 +34,10 @@ public class CrudActionTest {
     @Test
     protected void testSetListeActionsOK() {
         CrudAction crudAction = new CrudAction();
-        List<Action> expectedList = Collections.singletonList(new ActionSimple("Action Test"));
+        List<AbstractAction> expectedList = Collections.singletonList(new ActionSimple("Action Test"));
         crudAction.setListeActions(expectedList);
 
-        List<Action> actualList = crudAction.getListeActions();
+        List<AbstractAction> actualList = crudAction.getListeActions();
 
         Assertions.assertNotNull(actualList, "Le retour de la méthode ne devrait pas être nul");
         Assertions.assertFalse(actualList.isEmpty(), "La liste d'actions ne devrait pas être vide");
@@ -48,14 +48,14 @@ public class CrudActionTest {
     }
     @Test
     protected void testEnleverActionOK() {
-        Action action = new ActionSimple("Action Test");
+        AbstractAction action = new ActionSimple("Action Test");
 
         CrudAction crudAction = new CrudAction();
         crudAction.enregistrerAction(action);
 
         crudAction.enleverAction(action);
 
-        List<Action> actualList = crudAction.getListeActions();
+        List<AbstractAction> actualList = crudAction.getListeActions();
 
         Assertions.assertNotNull(actualList, "Le retour de la méthode ne devrait pas être nul");
         Assertions.assertFalse(actualList.contains(action), "La liste ne devrait plus contenir l'action retirée");

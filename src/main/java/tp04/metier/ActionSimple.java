@@ -33,7 +33,7 @@ import java.util.Map;
  * @author fatima/julie/marc
  */
 
-public class ActionSimple extends Action {
+public class ActionSimple extends AbstractAction {
 
     /**
      * Libellé de l'action.
@@ -54,7 +54,7 @@ public class ActionSimple extends Action {
         // Action simple initialisée comme 1 action
         super(libelle);
         if ("".equals(libelle)) {
-          throw new IllegalStateException("ActionSimple ne peux pas"
+            throw new IllegalStateException("ActionSimple ne peux pas"
                                          + " avoir un libelle vide");
         }
         // init spécifique
@@ -72,13 +72,12 @@ public class ActionSimple extends Action {
 
     public final  void enrgCours(final Cours cours)
             throws IllegalStateException {
-        if (this.listeCours.contains(cours)) {
+        if (listeCours.contains(cours)) {
             throw new IllegalStateException("Ce cours existe déjà dans "
                     + "la liste pour cette action");
         }
-        else {
-            this.listeCours.add(cours);
-        }
+
+        listeCours.add(cours);
     }
 
     /**

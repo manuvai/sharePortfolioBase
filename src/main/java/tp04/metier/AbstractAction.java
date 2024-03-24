@@ -24,12 +24,7 @@ import java.util.Objects;
  *
  * @author fatima
  */
-public abstract class Action {
-
-    /**
-     * Libellé de l'action.
-     */
-    private final String libelle;
+public abstract class AbstractAction {
 
     /**
      * Valeur de la constante pour le calcul de hashCode.
@@ -41,21 +36,26 @@ public abstract class Action {
     private static final int INITIAL_HASH = 3;
 
     /**
-     * Get the value of libelle.
-     *
-     * @return the value of libelle.
+     * Libellé de l'action.
      */
-    public final String getLibelle() {
-        return libelle;
-    }
+    private final String libelle;
 
     /**
      * Constructeur de la classe Action.
      *
      * @param inLibelle Le libellé de l'action.
      */
-    public Action(final String inLibelle) {
+    protected AbstractAction(final String inLibelle) {
         this.libelle = inLibelle;
+    }
+
+    /**
+     * Get the value of libelle.
+     *
+     * @return the value of libelle.
+     */
+    public final String getLibelle() {
+        return libelle;
     }
 
     /**
@@ -94,7 +94,7 @@ public abstract class Action {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Action other = (Action) obj;
+        final AbstractAction other = (AbstractAction) obj;
         return Objects.equals(this.libelle, other.libelle);
     }
 

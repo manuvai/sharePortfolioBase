@@ -21,8 +21,8 @@ package tp04.metier;
  * Example of usage: <code>Cours c = new Cours(j, 2.3F);</code>
  * </p>
  *
- * @author SomeFirstName SomeName &lt;SomeFirstName.SomeName at truc.fr&gt;
- * @see Action
+ * @author manuvai
+ * @see AbstractAction
  * @see Jour
  */
 public final class Cours {
@@ -35,6 +35,23 @@ public final class Cours {
      * The value of this cours for the given day.
      */
     private final float valeur;
+
+    /**
+     * Builds a Cours instance from a day and a value.
+     *
+     * @param aJour   the day of the Cours
+     * @param aValeur ths value of the Cours
+     * @throws IllegalArgumentException si le nombres est negative.
+     */
+    public Cours(final Jour aJour, final float aValeur)
+            throws IllegalArgumentException {
+        if (aValeur < 0) {
+            throw new IllegalArgumentException("negatif number must "
+                    + "not be used as a valid Value");
+        }
+        this.jour = aJour;
+        this.valeur = aValeur;
+    }
 
     /**
      * Provides a read access to the value of the cours.
@@ -52,23 +69,6 @@ public final class Cours {
      */
     public Jour getJour() {
         return jour;
-    }
-
-    /**
-     * Builds a Cours instance from a day and a value.
-     *
-     * @param aJour   the day of the Cours
-     * @param aValeur ths value of the Cours
-     * @throws IllegalArgumentException si le nombres est negative.
-     */
-    public Cours(final Jour aJour, final float aValeur)
-            throws IllegalArgumentException {
-        if (aValeur < 0) {
-            throw new IllegalArgumentException("negatif number must "
-                    + "not be used as a valid Value");
-        }
-        this.jour = aJour;
-        this.valeur = aValeur;
     }
 
     @Override

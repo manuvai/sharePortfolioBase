@@ -27,7 +27,7 @@ import java.util.Map;
  *
  * @author Moli Nguyen
  */
-public class ActionComposee extends Action {
+public class ActionComposee extends AbstractAction {
 
     /**
      * Map pour stocker les actions simples.
@@ -75,9 +75,12 @@ public class ActionComposee extends Action {
      */
     public void affichageCours() {
         //Parcours le Map
-        for (ActionSimple as : this.mapPanier.keySet()) {
+        for (Map.Entry<ActionSimple, Float> entry : mapPanier.entrySet()) {
+            ActionSimple actionSimple = entry.getKey();
+            Float pourcentage = entry.getValue();
+
             System.out.println(
-            as.getLibelle() + "-pourcentage : " + mapPanier.get(as)
+                actionSimple.getLibelle() + "-pourcentage : " + pourcentage
             );
         }
     }
@@ -94,7 +97,7 @@ public class ActionComposee extends Action {
         //Parcours le Map
         for (Map.Entry<ActionSimple, Float> entry : this.mapPanier.entrySet()) {
             if (entry.getKey().equals(actionSimple)) {
-            return entry.getValue();
+                return entry.getValue();
             }
         }
         return 0;
@@ -104,15 +107,13 @@ public class ActionComposee extends Action {
      * Fonction permettant de supprimer une action composée.
      *
      * @param as l'action simple à supprimer
-     * @throws Exception Lorsque l'action n'est pas comprise dans la liste des actions composantes
      */
-    public void suppressionCours(final ActionSimple as) throws Exception {
+    public void suppressionCours(final ActionSimple as) {
         //verification du cours dans la Map
-        if (this.mapPanier.containsKey(as)) {
-            this.mapPanier.remove(as);
-        } else {
-            throw new Exception("Ce cours n'existe pas dans la liste pour cette action");
+        if (!mapPanier.containsKey(as)) {
+            throw new IllegalArgumentException("Ce cours n'existe pas dans la liste pour cette action");
         }
+        mapPanier.remove(as);
     }
 
     @Override

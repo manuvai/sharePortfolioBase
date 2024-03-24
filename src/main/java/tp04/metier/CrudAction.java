@@ -33,14 +33,14 @@ public class CrudAction {
  * Cette liste contient les actions
  * associées à l'objet en cours.
  */
-	private List<Action> listeActions = new ArrayList<>();
+	private List<AbstractAction> listeActions = new ArrayList<>();
 
 	/**
 	 * Retourne la liste des actions contenues.
 	 *
 	 * @return La liste des actions
 	 */
-	public final List<Action> getListeActions() {
+	public final List<AbstractAction> getListeActions() {
 		return listeActions;
 	}
 
@@ -49,7 +49,7 @@ public class CrudAction {
 	 *
 	 * @param inListeActions la liste des actions
 	 */
-	public final void setListeActions(final List<Action>
+	public final void setListeActions(final List<AbstractAction>
                 inListeActions) {
 		listeActions = inListeActions;
 	}
@@ -60,7 +60,7 @@ public class CrudAction {
 	 *
 	 * @param action L'action à ajouter
 	 */
-	public final void enregistrerAction(final Action action) {
+	public final void enregistrerAction(final AbstractAction action) {
 		// Ajout a la liste
 		listeActions.add(action);
 	}
@@ -70,7 +70,7 @@ public class CrudAction {
 	 */
 	public final void affichageListeAction() {
 		System.out.println("Affichage Liste d'actions");
-		for (Action a : listeActions) {
+		for (AbstractAction a : listeActions) {
 			System.out.println(a.getLibelle());
 		}
 	}
@@ -81,7 +81,7 @@ public class CrudAction {
 	 *
 	 * @param action l'action à enlever
 	 */
-	public final void enleverAction(final Action action) {
+	public final void enleverAction(final AbstractAction action) {
 		// Ajout a la liste
 		listeActions.remove(action);
 	}

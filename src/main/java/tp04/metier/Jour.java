@@ -15,18 +15,27 @@
  */
 package tp04.metier;
 
-    /**
-    * Classe représentant une date dans une année.
-    * Cette classe permet de représenter une date dans une année donnée,
-    * avec un numéro de jour compris entre 1 et 365.
-    * Elle fournit des méthodes pour accéder et modifier l'année et
-    * le numéro de jour, ainsi que des méthodes pour le hashCode,
-    * l'égalité, la comparaison et la représentation sous forme
-    * de chaîne de caractères.
-    *
-    * @author fatima
-    */
+/**
+ * Classe représentant une date dans une année.
+ * Cette classe permet de représenter une date dans une année donnée,
+ * avec un numéro de jour compris entre 1 et 365.
+ * Elle fournit des méthodes pour accéder et modifier l'année et
+ * le numéro de jour, ainsi que des méthodes pour le hashCode,
+ * l'égalité, la comparaison et la représentation sous forme
+ * de chaîne de caractères.
+ *
+ * @author fatima
+ */
 public class Jour implements Comparable<Jour> {
+
+    /**
+     * Valeur de la constante pour le calcul de hashCode.
+     */
+    private static final int MULTIPLIER = 61;
+    /**
+     * Valeur de la constante pour le calcul de hashCode.
+     */
+    private static final int INITIAL_HASH = 7;
 
      /**
      * Année.
@@ -37,14 +46,6 @@ public class Jour implements Comparable<Jour> {
      */
     private int noJour;
 
-     /**
-     * Valeur de la constante pour le calcul de hashCode.
-     */
-    private static final int MULTIPLIER = 61;
-    /**
-     * Valeur de la constante pour le calcul de hashCode.
-     */
-    private static final int INITIAL_HASH = 7;
 
     /**
      * Get the value of annee.
@@ -83,10 +84,10 @@ public class Jour implements Comparable<Jour> {
      * de jour est inférieur ou égal à 0
      */
     public Jour(final int annee, final int noJour) {
-            if (noJour <= 0) {
-                throw new IllegalArgumentException("0 must not"
-                        + " be used as a valid Day");
-            }
+        if (noJour <= 0) {
+            throw new IllegalArgumentException("0 must not"
+                    + " be used as a valid Day");
+        }
         this.annee = annee;
         this.noJour = noJour;
     }
