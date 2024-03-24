@@ -23,12 +23,12 @@ import java.util.Map;
  * Un portefeuille contient un ensemble d'actions avec les quantités correspondantes.
  * Il permet d'acheter et de vendre des actions, ainsi que de calculer la valeur totale du portefeuille.
  * 
- * @author somebody
+ * @author manuvai
  */
 public class Portefeuille {
 
     // Map pour stocker les actions avec les quantités correspondantes
-    Map<Action, LignePortefeuille> mapLignes;
+    Map<AbstractAction, LignePortefeuille> mapLignes;
 
     
      /**
@@ -36,7 +36,7 @@ public class Portefeuille {
      */
     public class LignePortefeuille {
 
-        private  Action action;
+        private AbstractAction action;
         private int qte;
 
         /**
@@ -63,7 +63,7 @@ public class Portefeuille {
          * @return L'action associée.
          */
         
-        public Action getAction() {
+        public AbstractAction getAction() {
             return this.action;
         }
 
@@ -75,7 +75,7 @@ public class Portefeuille {
          * @param qte La quantité d'action dans cette ligne.
          */
         
-        public LignePortefeuille(Action action, int qte) {
+        public LignePortefeuille(AbstractAction action, int qte) {
             this.action = action;
             this.qte = qte;
         }
@@ -91,15 +91,14 @@ public class Portefeuille {
         }
     }
 
-        /**
-       * Constructeur de la classe Portefeuille.
-       * Initialise un nouveau portefeuille avec une map vide pour stocker les lignes du portefeuille.
-       */
-        public Portefeuille() {
-            this.mapLignes = new HashMap();
-        }
+    /**
+     * Constructeur de la classe Portefeuille.
+     * Initialise un nouveau portefeuille avec une map vide pour stocker les lignes du portefeuille.
+     */
+    public Portefeuille() {
+        this.mapLignes = new HashMap<>();
+    }
 
-    
     /** 
      * Achat une quantité spécifiée d'une certaine action.
      * Si l'action n'est pas présente dans le portefeuille, elle est ajoutée avec la quantité spécifiée.
@@ -109,19 +108,19 @@ public class Portefeuille {
      * @param q la quantité à acheter
      */
     
-    public void acheter(Action a, int q) {
-    if (q <= 0) {
-        throw new IllegalArgumentException("La quantité doit être supérieure à 0 pour acheter cette action");
-    }
+    public void acheter(AbstractAction a, int q) {
+        if (q <= 0) {
+            throw new IllegalArgumentException("La quantité doit être supérieure à 0 pour acheter cette action");
+        }
 
-    // Si l'action n'est pas présente dans le portefeuille, l'ajouter avec la quantité spécifiée
-    if (!mapLignes.containsKey(a)) {
-        mapLignes.put(a, new LignePortefeuille(a, q));
-    } else {
-    // Si l'action est déjà présente, mettre à jour la quantité existante en ajoutant la quantité spécifiée
-        mapLignes.get(a).setQte(mapLignes.get(a).getQte() + q);
+        // Si l'action n'est pas présente dans le portefeuille, l'ajouter avec la quantité spécifiée
+        if (!mapLignes.containsKey(a)) {
+            mapLignes.put(a, new LignePortefeuille(a, q));
+        } else {
+            // Si l'action est déjà présente, mettre à jour la quantité existante en ajoutant la quantité spécifiée
+            mapLignes.get(a).setQte(mapLignes.get(a).getQte() + q);
+        }
     }
-}
     
     
     /**
@@ -134,7 +133,7 @@ public class Portefeuille {
      * @param a L'action à vendre.
      * @param q La quantité à vendre.
      */
-    public final void vendre(final Action a, final int q) {
+    public final void vendre(final AbstractAction a, final int q) {
 
         if (q <= 0) {
             throw new IllegalArgumentException("La quantité doit être supérieure à 0 pour vendre cette action");
@@ -176,22 +175,23 @@ public class Portefeuille {
         }
         return total;
     }
- /**
-    * Modifie la quantité d'une action spécifiée dans le portefeuille.
-    * Si l'action existe déjà, sa quantité est mise à jour avec la nouvelle quantité spécifiée.
-    * Si l'action n'existe pas dans le portefeuille, elle est ajoutée avec la nouvelle quantité.
-    * Une exception est lancée si la nouvelle quantité spécifiée est inférieure ou égale à 0, 
-    * car cela ne représente pas une opération valide sur le portefeuille.
-    *
-    * @param a L'action à modifier.
-    * @param nouvelleQte La nouvelle quantité pour l'action.
-    * @throws IllegalArgumentException Si la nouvelle quantité est inférieure ou égale à 0.
- */
-    public void modifierAction(Action a, int nouvelleQte){
-         if (nouvelleQte <= 0) {
+    /**
+     * Modifie la quantité d'une action spécifiée dans le portefeuille.
+     * Si l'action existe déjà, sa quantité est mise à jour avec la nouvelle quantité spécifiée.
+     * Si l'action n'existe pas dans le portefeuille, elle est ajoutée avec la nouvelle quantité.
+     * Une exception est lancée si la nouvelle quantité spécifiée est inférieure ou égale à 0,
+     * car cela ne représente pas une opération valide sur le portefeuille.
+     *
+     * @param a L'action à modifier.
+     * @param nouvelleQte La nouvelle quantité pour l'action.
+     * @throws IllegalArgumentException Si la nouvelle quantité est inférieure ou égale à 0.
+     */
+    public void modifierAction(AbstractAction a, int nouvelleQte){
+        if (nouvelleQte <= 0) {
             throw new IllegalArgumentException("La quantité doit être supérieure à 0");
         }
-         LignePortefeuille ligne = mapLignes.get(a);
+
+        LignePortefeuille ligne = mapLignes.get(a);
         if (ligne != null) {
             // Si l'action existe déjà, on met à jour la quantité
             ligne.setQte(nouvelleQte);
@@ -214,28 +214,31 @@ public class Portefeuille {
     }
     
  
-  
-        /**
-       * Affiche la composition des actions composées présentes dans le portefeuille.
-       * Pour chaque action composée dans le portefeuille, affiche son libellé et sa composition.
-       */
-      public void visualiserCompositionActionsComposees() {
-          System.out.println("Composition des actions composées dans le portefeuille:");
-          for (LignePortefeuille ligne : mapLignes.values()) {
-              Action action = ligne.getAction();
-              if (action instanceof ActionComposee actionComposee) {
-                  System.out.println("Action composée: " + actionComposee.getLibelle());
-                  actionComposee.visualiserComposition();
-              }
-          }
-      }
+
+    /**
+     * Affiche la composition des actions composées présentes dans le portefeuille.
+     * Pour chaque action composée dans le portefeuille, affiche son libellé et sa composition.
+     */
+    public void visualiserCompositionActionsComposees() {
+        System.out.println("Composition des actions composées dans le portefeuille:");
+        for (LignePortefeuille ligne : mapLignes.values()) {
+            AbstractAction action = ligne.getAction();
+            if (action instanceof ActionComposee actionComposee) {
+                System.out.println("Action composée: " + actionComposee.getLibelle());
+                actionComposee.visualiserComposition();
+            }
+        }
+    }
 
     /**
      * TODO
      */
     public void visualiserComposition() {
-        for (Action as : this.mapLignes.keySet()) {
-            System.out.println("- Action simple: " + as.getLibelle() + ", Pourcentage: " + mapLignes.get(as));
+        for (Map.Entry<AbstractAction, LignePortefeuille> entry : mapLignes.entrySet()) {
+            AbstractAction action = entry.getKey();
+            LignePortefeuille ligne = entry.getValue();
+
+            System.out.println("- Action simple: " + action.getLibelle() + ", Pourcentage: " + ligne);
         }
     }
 
@@ -253,7 +256,7 @@ public class Portefeuille {
      * @param jour    Le jour pour lequel l'achat est envisagé.
      * @return Le nombre maximum d'actions achetables avec le montant donné.
      */
-    public int nombreActionsAchetables(Action a, float montant, Jour jour) {
+    public int nombreActionsAchetables(AbstractAction a, float montant, Jour jour) {
         double valeurAction = a.valeur(jour);
 
         if (valeurAction <= 0) {
