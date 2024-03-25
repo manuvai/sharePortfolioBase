@@ -25,17 +25,15 @@ import java.util.Map;
  * Une action simple est une action qui ne contient qu'un seul cours.
  * Elle hérite des propriétés et méthodes de la classe Action.
  *
- * <p>
  * Exemple d'utilisation :
  * <pre>
  *     ActionSimple action = new ActionSimple("ActionXYZ");
  * </pre>
- * </p>
  *
  * @author fatima/julie/marc
  */
 
-public class ActionSimple extends Action {
+public class ActionSimple extends AbstractAction {
 
     /**
      * Libellé de l'action.
@@ -56,7 +54,7 @@ public class ActionSimple extends Action {
         // Action simple initialisée comme 1 action
         super(libelle);
         if ("".equals(libelle)) {
-          throw new IllegalStateException("ActionSimple ne peux pas"
+            throw new IllegalStateException("ActionSimple ne peux pas"
                                          + " avoir un libelle vide");
         }
         // init spécifique
@@ -74,13 +72,12 @@ public class ActionSimple extends Action {
 
     public final  void enrgCours(final Cours cours)
             throws IllegalStateException {
-        if (this.listeCours.contains(cours)) {
+        if (listeCours.contains(cours)) {
             throw new IllegalStateException("Ce cours existe déjà dans "
                     + "la liste pour cette action");
         }
-        else {
-            this.listeCours.add(cours);
-        }
+
+        listeCours.add(cours);
     }
 
     /**
@@ -102,7 +99,7 @@ public class ActionSimple extends Action {
     */
 
     @Override
-    public final float valeur(Jour j) {
+    public final float valeur(final Jour j) {
         for (Cours c : this.listeCours) {
             if (c.getJour().equals(j)) {
                 return c.getValeur();

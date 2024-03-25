@@ -17,9 +17,13 @@ package tp04.metier;
 
 import java.util.Collections;
 import java.util.Map;
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
@@ -73,12 +77,23 @@ public class ActionComposeeTest {
         Assertions.assertEquals(expectedToString, currentToString, "valider");
     }
 
-     /**
-     * Test of testValueIncorrectShouldFail method, of class ActionComposee.
-     * @throws java.lang.Exception
-     */
-     @Test
-    protected final void testValueIncorrectShouldFail() throws Exception {
+    @Test
+    // Test Permettant de tester le constructeur
+    protected void testConstructorParametersAreIncorrectKO() throws Exception {
+        // GIVEN
+        String expectedMessage = "ActionComposée ne peux pas avoir un libelle vide";
+
+        //Action
+        IllegalStateException exception = Assertions.assertThrowsExactly(IllegalStateException.class
+                , () -> new ActionComposee("")
+                , "Le controleur ne devrait pas accepter une string vide");
+
+        //Assert
+        Assertions.assertEquals(expectedMessage, exception.getMessage(), "Les messages devraient correspondre");
+    }
+    
+    @Test
+    protected void testValueIncorrectShouldFail() throws Exception {
         //Arrange
         final ActionSimple defaultAs1 = new ActionSimple("France 1");
         final ActionSimple defaultAs2 = new ActionSimple("M6");
@@ -104,10 +119,122 @@ public class ActionComposeeTest {
                 currentToString, "testValueIncorrectShouldFail KO");
     }
 
-    /**
-     * Test of testAfficherCoursPeriodeAnneeDifferente.
-     * method, of class ActionComposee.
-     */
+    @Test
+    protected void testEnrgCompositionPourcentageNegativeKO() {
+        // GIVEN
+        ActionComposee actionComposee = new ActionComposee("Test");
+        ActionSimple actionSimple = new ActionSimple("Total");
+        String expectedMessage = "Le pourcentage ne peux pas être inférieur ou égale a 0";
+
+        // WHEN
+        IllegalStateException exception = Assertions.assertThrowsExactly(IllegalStateException.class
+            , () -> actionComposee.enrgComposition(actionSimple, -1)
+            , "Cet appel devrait lancer une exception");
+
+        // THEN
+        Assertions.assertEquals(expectedMessage, exception.getMessage(), "Les messages devraient correspondre");
+    }
+
+    @Test
+    protected void testEnrgCompositionPourcentageZeroKO() {
+        // GIVEN
+        ActionComposee actionComposee = new ActionComposee("Test");
+        ActionSimple actionSimple = new ActionSimple("Total");
+        String expectedMessage = "Le pourcentage ne peux pas être inférieur ou égale a 0";
+
+        // WHEN
+        IllegalStateException exception = Assertions.assertThrowsExactly(IllegalStateException.class
+                , () -> actionComposee.enrgComposition(actionSimple, 0)
+                , "Cet appel devrait lancer une exception");
+
+        // THEN
+        Assertions.assertEquals(expectedMessage, exception.getMessage(), "Les messages devraient correspondre");
+    }
+
+    @Test
+    protected void testAffichagePourcentageActionSimpleMapEmptyReturnZeroOK() {
+        // GIVEN
+        ActionComposee actionComposee = new ActionComposee("Test");
+        ActionSimple actionSimple = new ActionSimple("Test simple");
+
+        // THEN
+        Assertions.assertEquals(0
+                , actionComposee.affichagePourcentageActionSimple(actionSimple)
+                , "Le pourcentage devrait correspondre");
+
+    }
+    @Test
+    protected void testAffichagePourcentageActionSimpleMapFilledReturnOK() {
+        // GIVEN
+        Float expectedPourcentage = DEFAULT_POURCENTAGE;
+        ActionComposee actionComposee = new ActionComposee("Test");
+        ActionSimple actionSimple = new ActionSimple("Test simple");
+
+        // WHEN
+        actionComposee.enrgComposition(actionSimple, expectedPourcentage);
+
+        // THEN
+        Assertions.assertEquals(expectedPourcentage
+                , actionComposee.affichagePourcentageActionSimple(actionSimple)
+                , "Le pourcentage devrait correspondre");
+    }
+    @Test
+    protected void testSuppressionCoursActionNotIncludedKO() {
+        // GIVEN
+        ActionComposee actionComposee = new ActionComposee("Test");
+        ActionSimple actionSimple = new ActionSimple("Test action Simple");
+        String expectedExceptionMessage = "Ce cours n'existe pas dans la liste pour cette action";
+
+        // WHEN
+        IllegalArgumentException exception = Assertions.assertThrowsExactly(IllegalArgumentException.class
+                , () -> actionComposee.suppressionCours(actionSimple)
+                , "Ne devrait pas lever d'exception");
+
+        // THEN
+        Assertions.assertEquals(expectedExceptionMessage, exception.getMessage(), "Les messages devraient correspondre");
+    }
+    @Test
+    protected void testSuppressionCoursActionOK() {
+        // GIVEN
+        ActionComposee actionComposee = new ActionComposee("Test");
+        ActionSimple actionSimple = new ActionSimple("Test action Simple");
+
+        // WHEN
+        actionComposee.enrgComposition(actionSimple, DEFAULT_POURCENTAGE);
+
+        // THEN
+        Assertions.assertDoesNotThrow(() -> actionComposee.suppressionCours(actionSimple)
+                , "Ne devrait pas lever d'exception");
+    }
+    @Test
+    protected void testAffichageCoursOK() {
+        // GIVEN
+        String lineSeparator = System.getProperty("line.separator");
+        String expectedOutput = "Total-pourcentage : 11.0" + lineSeparator;
+        ActionComposee actionComposee = new ActionComposee("Test");
+        ActionSimple actionSimple = new ActionSimple("Total");
+        actionComposee.enrgComposition(actionSimple, DEFAULT_POURCENTAGE);
+
+        // WHEN
+
+        // Redirection de la sortie console vers un flux pour permettre la comparaison
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        // Exécution de la méthode à tester
+        actionComposee.affichageCours();
+
+        // Récupération de la sortie imprimée
+        String actualOutput = outputStream.toString();
+
+        // Rétablissement de la sortie console normale
+        System.setOut(originalOut);
+
+        // THEN
+        Assertions.assertEquals(expectedOutput, actualOutput, "Les sorties devraient correspondre");
+    }
+
     @Test
     protected final void testAfficherCoursPeriodeAnneeDifferente() {
         String messageErreur = "Date différente";
@@ -124,7 +251,7 @@ public class ActionComposeeTest {
                 "Message d'erreur devrait être le même");
     }
 
-      /**
+    /**
      * Test of testAfficherCoursPeriodeJourFutur.
      * method, of class ActionComposee.
      */
@@ -145,9 +272,9 @@ public class ActionComposeeTest {
     }
 
      /**
-     * Test of enrgComposition method, of class ActionComposee.
-     * @throws java.lang.IllegalStateException
-     */
+      * Test of enrgComposition method, of class ActionComposee.
+      * @throws java.lang.IllegalStateException
+      */
     @Test
     public final void testEnrgComposition() throws IllegalStateException {
         ActionSimple as = new ActionSimple("test1");

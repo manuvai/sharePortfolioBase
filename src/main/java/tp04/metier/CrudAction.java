@@ -16,51 +16,73 @@
 package tp04.metier;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/*
- * Démarche de développement agile
+/**
+ * Démarche de développement agile.
  *
  * @author Moli, Nguyen
- *
  * 18/03/2024
  *
  * Copyright
  */
-
 public class CrudAction {
 
-	// Paramètres 
-	private ArrayList<Action> ListeActions = new ArrayList<>();
+/**
+ * Liste des actions.
+ * Cette liste contient les actions
+ * associées à l'objet en cours.
+ */
+	private List<AbstractAction> listeActions = new ArrayList<>();
 
-	public CrudAction() {
-		super();
+	/**
+	 * Retourne la liste des actions contenues.
+	 *
+	 * @return La liste des actions
+	 */
+	public final List<AbstractAction> getListeActions() {
+		return listeActions;
 	}
 
-	public ArrayList<Action> getListeActions() {
-		return ListeActions;
+	/**
+	 * mets à jour la liste des actions.
+	 *
+	 * @param inListeActions la liste des actions
+	 */
+	public final void setListeActions(final List<AbstractAction>
+                inListeActions) {
+		listeActions = inListeActions;
 	}
 
-	public void setListeActions(ArrayList<Action> listeActions) {
-		ListeActions = listeActions;
-	}
-	
-	// Fonction permettant d'enregistrer une action dans la liste d'action simple
-	public void enregistrerAction ( Action action ) {
+	/**
+	 * Fonction permettant d'enregistrer.
+         * une action dans la liste d'action simple
+	 *
+	 * @param action L'action à ajouter
+	 */
+	public final void enregistrerAction(final AbstractAction action) {
 		// Ajout a la liste
-		this.ListeActions.add(action);
+		listeActions.add(action);
 	}
-	
-        // Fonction permettant d'afficher une liste d'actions
-	public void affichageListeAction () {
+
+	/**
+	 * Fonction permettant d'afficher une liste d'actions.
+	 */
+	public final void affichageListeAction() {
 		System.out.println("Affichage Liste d'actions");
-		for (Action a : this.ListeActions) {
+		for (AbstractAction a : listeActions) {
 			System.out.println(a.getLibelle());
 		}
 	}
-        
-        // Fonction permettant d'enlever une action de la liste d'actions
-	public void enleverAction ( Action action ) {
+
+	/**
+	 * Fonction permettant d'enlever.
+         * une action de la liste d'actions
+	 *
+	 * @param action l'action à enlever
+	 */
+	public final void enleverAction(final AbstractAction action) {
 		// Ajout a la liste
-		this.ListeActions.remove(action);
+		listeActions.remove(action);
 	}
 }

@@ -16,55 +16,92 @@
 package tp04.metier;
 
 /**
+ * Classe représentant une date dans une année.
+ * Cette classe permet de représenter une date dans une année donnée,
+ * avec un numéro de jour compris entre 1 et 365.
+ * Elle fournit des méthodes pour accéder et modifier l'année et
+ * le numéro de jour, ainsi que des méthodes pour le hashCode,
+ * l'égalité, la comparaison et la représentation sous forme
+ * de chaîne de caractères.
  *
- * @author somebody
+ * @author fatima
  */
-public class Jour implements Comparable<Jour>{
-
-    private int annee;
-    private int noJour;
+public class Jour implements Comparable<Jour> {
 
     /**
-     * Get the value of annee
+     * Valeur de la constante pour le calcul de hashCode.
+     */
+    private static final int MULTIPLIER = 61;
+    /**
+     * Valeur de la constante pour le calcul de hashCode.
+     */
+    private static final int INITIAL_HASH = 7;
+
+     /**
+     * Année.
+     */
+    private int annee;
+    /**
+     * Numéro de jour.
+     */
+    private int noJour;
+
+
+    /**
+     * Get the value of annee.
+     *
      *
      * @return the value of annee
      */
-    public int getAnnee() {
+    public final int getAnnee() {
         return annee;
     }
-    
-    public void setAnnee(int annee){
+
+    /**
+     * Set the value of annee.
+     *
+     * @param annee la nouvelle valeur de l'annee
+     */
+    public final void setAnnee(final int annee){
         this.annee = annee;
     }
 
     /**
-     * Get the value of noJour
+     * Get the value of noJour.
      *
      * @return the value of noJour
      */
-    public int getNoJour() {
+    public final int getNoJour() {
         return noJour;
     }
-    
 
-    public Jour(int annee, int noJour) {
-    	if(noJour <= 0) {
-            throw new IllegalArgumentException("0 must not be used as a valid Day");
-    	}
+    /**
+     * Constructor of the Jour object.
+     *
+     * @param annee Le numéro de l'année
+     * @param noJour le numéro du jour 1-365
+     * @throws IllegalArgumentException si le numéro
+     * de jour est inférieur ou égal à 0
+     */
+    public Jour(final int annee, final int noJour) {
+        if (noJour <= 0) {
+            throw new IllegalArgumentException("0 must not"
+                    + " be used as a valid Day");
+        }
         this.annee = annee;
         this.noJour = noJour;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + this.annee;
-        hash = 61 * hash + this.noJour;
+    public final int hashCode() {
+        int hash = INITIAL_HASH;
+        hash = MULTIPLIER * hash + this.annee;
+        hash = MULTIPLIER * hash + this.noJour;
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj == null) {
             return false;
         }
@@ -82,12 +119,12 @@ public class Jour implements Comparable<Jour>{
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Jour{" + "annee=" + annee + ", noJour=" + noJour + '}';
     }
 
     @Override
-    public int compareTo(Jour other) {
+    public final int compareTo(final Jour other) {
         if (annee < other.annee) {
             return -1;
         }
